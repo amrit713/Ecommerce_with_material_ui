@@ -4,9 +4,13 @@ import Description from "./Description";
 import Reviews from "./Reviews";
 import Product from "../home/product/Product";
 import { motion } from "framer-motion";
+import { useTypedSelector } from "../../../store/store";
 
-function DescriptionReview() {
+function DescriptionReview(props: any) {
   const [toggle, setToggle] = useState(true);
+  const { products } = useTypedSelector((state: any) => state.products);
+
+  // const relatedProduct = products?.split(0,6)
 
   return (
     <div className="mt-8">
@@ -27,7 +31,7 @@ function DescriptionReview() {
 
       <div className="w-full border-solid border border-gray-300 " />
 
-      <Description toggle={toggle} />
+      <Description toggle={toggle} description={props.description} />
 
       <Reviews toggle={toggle} />
       <motion.div
@@ -39,12 +43,11 @@ function DescriptionReview() {
         <Typography variant="h6" className="font-semibold mt-8 mb-4">
           Related Product
         </Typography>
-        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-        </div>
+        {/* <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+          {relatedProduct?.map((product:any) => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div> */}
       </motion.div>
     </div>
   );

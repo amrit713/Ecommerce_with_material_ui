@@ -1,91 +1,84 @@
-import React from 'react'
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useState } from "react";
 import { Typography, Button, Rating } from "@mui/material";
 import Image from "next/image";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
+import ProductImage from "./ProductImage";
+import { EmblaOptionsType } from "embla-carousel-react";
+import { useTypedDispatch, useTypedSelector } from "../../../store/store";
+import { addItemToCart } from "../../../store/action/cartAction";
 
-function Detail() {
+const OPTIONS: EmblaOptionsType = {};
+const SLIDE_COUNT = 3;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
+function Detail({ product }: any) {
+  const dispatch = useTypedDispatch();
+
+
+
+  const addToCartHandler = () => {
+    dispatch(addItemToCart(product._id));
+  };
+
   return (
     <div className="  sm:flex sm:space-x-6 ">
-        {/* image */}
-        <div className=" sm:w-[50%]">
-          <div className="relative w-[full rounded-lg overflow-hidden h-[40vh]">
-            <Image
-              src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
+      {/* image */}
+      <div className=" sm:w-[50%]">
+        <ProductImage
+          slides={SLIDES}
+          options={OPTIONS}
+          images={product?.images}
+        />
+      </div>
+      <div className=" sm:w-[50%] space-y-3 mt-8">
+        <Typography
+          className={`font-semibold text-sm   px-2 py-1 w-[9rem] rounded-md text-center ${
+            product?.stock >= 1
+              ? " text-secondary  bg-gray-200"
+              : "bg-primary-main/20 text-primary-dark"
+          }`}
+        >
+          {product?.stock >= 1 ? "Stock Available" : "Out Of Stock"}
+        </Typography>
+        <Typography variant="h4" className="font-semibold">
+          {" "}
+          {product?.name}
+        </Typography>
+        <Typography variant="subtitle1" className=" text-dark capitalize">
+          {" "}
+          Category: {product?.category}
+        </Typography>
 
-          <div className=" sm:w-50% mt-4 flex justify-center space-x-8">
-            <div className="overflow-hidden w-[7rem] h-[7rem] border-solid  border-2 rounded-md border-primary-main duration-200 ease-linear ">
-              <div className="relative w-[7rem] h-[7rem]  duration-200 ease-in cursor-pointer hover:scale-110 hover:opacity-95">
-                <Image
-                  src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-            </div>
-
-            <div className="overflow-hidden w-[7rem] h-[7rem] border-solid  border-2 border-dark rounded-md hover:border-primary-main duration-200 ease-linear ">
-              <div className="relative w-[7rem] h-[7rem]  duration-200 ease-in cursor-pointer hover:scale-110 hover:opacity-95">
-                <Image
-                  src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d2F0Y2h8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-            </div>
-
-            <div className="overflow-hidden w-[7rem] h-[7rem] border-solid  border-2 rounded-md border-dark hover:border-primary-main duration-200 ease-linear ">
-              <div className="relative w-[7rem] h-[7rem]  duration-200 ease-in cursor-pointer hover:scale-110 hover:opacity-95">
-                <Image
-                  src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHdhdGNofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className=" sm:w-[50%] space-y-3 mt-8">
-          <Typography variant="h4" className="font-semibold">
-            {" "}
-            Frédérique Constant{" "}
-          </Typography>
+        <div className="flex items-center space-x-2">
           <Typography variant="subtitle1" className=" text-dark">
             {" "}
-            Category: Watch{" "}
+            Rated:
           </Typography>
-
-          <div className="flex items-center space-x-2">
-            <Typography variant="subtitle1" className=" text-dark">
-              {" "}
-              Rated:
+          <div className="flex items-center justify-center">
+            <Rating
+              name="read-only"
+              value={3}
+              readOnly
+              className="text-amber-500 "
+            />
+            <Typography className="text-sm font-bold text-gray-400">
+              (12)
             </Typography>
-            <div className="flex items-center justify-center">
-          
-          <Rating name="read-only" value={3} readOnly  className="text-amber-500 "/>
-            <Typography className="text-sm font-bold text-gray-400">(12)</Typography>
           </div>
-          </div>
-
-          <div className="">
-          <Typography variant="h4" className="font-semibold text-primary-main">
-            {" "}
-           Rs. 15,000
-          </Typography>
-          <Typography className="font-medium text-dark">Stock Avaliable</Typography>
-          </div>
-
-          <Button variant="contained" size="large" > 
-          Add To Cart
-          </Button>
         </div>
+
+        <div className="">
+          <Typography variant="h4" className="font-semibold text-primary-main">
+            {`Rs. ${new Intl.NumberFormat("en-NP").format(product?.price)}`}
+          </Typography>
+        </div>
+
+        <Button variant="contained" size="large" onClick={addToCartHandler}>
+          Add To Cart
+        </Button>
       </div>
-  )
+    </div>
+  );
 }
 
-export default Detail
+export default Detail;

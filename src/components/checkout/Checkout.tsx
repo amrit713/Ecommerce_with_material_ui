@@ -4,7 +4,7 @@ import Address from './Address'
 
 function Checkout() {
   return (
-    <div className=' mt-24 flex flex-col-reverse md:flex-row md:space-x-8 md:space-y-0'>
+    <div className=' flex flex-col-reverse md:flex-row md:space-x-8 md:space-y-0'>
         <div className="md:w-[75%] space-y-6">
           <Address/>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 ">

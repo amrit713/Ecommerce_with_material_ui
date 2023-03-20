@@ -6,7 +6,8 @@ import Layout from "../../src/layout/Layout";
 const myProfile: NextPage = () => {
   return (
     <Layout>
-     <Profile/>
+      
+      <Profile />
     </Layout>
   );
 };

@@ -1,5 +1,6 @@
 import { Button, TextField, Typography } from "@mui/material";
 import React from "react";
+import GoogleIcon from '@mui/icons-material/Google';
 
 function Login() {
   return (
@@ -7,7 +8,7 @@ function Login() {
       <div className="">
         <Typography variant="h6" className="font-semibold capitalize">
           {" "}
-          welcome to ecommerce{" "}
+          welcome to shoeniverse{" "}
         </Typography>
         <Typography
           variant="body1"
@@ -42,6 +43,10 @@ function Login() {
         LogIn
       </Button>
 
+      <Button variant="contained" size="large" className="w-full bg-googleBlue duration-300 hover:bg-googleDark  ">
+        <GoogleIcon className="mx-2"/>
+        LogIn With Google
+      </Button>
       
 
       <Typography variant="subtitle1">

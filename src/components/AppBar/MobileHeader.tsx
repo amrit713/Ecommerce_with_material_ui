@@ -1,5 +1,6 @@
 import { IconButton, Box, Typography, Badge } from "@mui/material";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -8,18 +9,25 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 function MobileHeader() {
-  const [value, setValue] = useState("home");
+  const [value, setValue] = useState("/");
+  const router = useRouter()
+ 
+
+
+
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
   return (
-    <Box className="fixed sm:hidden bottom-0 w-full bg-white z-30 box-box_shadow py-1 ">
-      <BottomNavigation  value={value} onChange={handleChange}>
+    <Box className="fixed sm:hidden bottom-0 w-full bg-white z_index_header box-box_shadow py-1 ">
+      <BottomNavigation  value={router.pathname} onChange={handleChange}>
         <BottomNavigationAction
           label="Home"
-          value="home"
+          value="/"
+          onClick={()=>router.push("/")}
           icon={<HomeOutlinedIcon />}
         />
         <BottomNavigationAction
@@ -31,7 +39,8 @@ function MobileHeader() {
         />
         <BottomNavigationAction
           label="Cart"
-          value="cart"
+          value="/cart"
+          onClick={()=>router.push("/cart")}
           
           icon={ <Badge badgeContent={0} color="primary">
              <ShoppingCartOutlinedIcon />

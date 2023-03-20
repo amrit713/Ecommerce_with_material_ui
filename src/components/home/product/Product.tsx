@@ -1,47 +1,78 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import Image from "next/image";
-import { Button, Typography, IconButton } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
-import { motion } from "framer-motion";
-import Rating from '@mui/material/Rating';
+import { Button, IconButton, Typography } from "@mui/material";
 
-function Product() {
+import Rating from "@mui/material/Rating";
+import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
+import { useRouter } from "next/router";
+import { UrlObject } from "url";
+import { useDispatch } from "react-redux";
+import { getProduct } from "../../../../store/action/productAction";
+import { useTypedDispatch } from "../../../../store/store";
+import { addItemToCart } from "../../../../store/action/cartAction";
+
+interface IProps {
+  product?: any;
+}
+
+function Product({ product }: IProps) {
+  const router = useRouter();
+  const dispatch = useTypedDispatch()
+
+  
+
+  const clickHandler = async (product: any) => {
+    router.push(product?._id);
+   
+
+  };
 
   const [value, setValue] = React.useState<number | null>(2);
   return (
-    <motion.div
-      className="bg-white min-w-[250px] rounded-md hover:box_shadow h-[360px]  overflow-hidden
-    "
-    >
-      <div className=" relative  w-full h-[200px] hover:opacity-85 duration-200 ease-linear cursor-pointer">
+    <div className="group rounded-[.5rem] overflow-hidden border-solid border border-gray-200 duration-300 ease-linear min-w-[16rem] bg-white">
+      <div className="m-2 relative rounded-[.25rem] h-[200px] hover:opacity-85 duration-200  ease-linear  overflow-hidden ">
         <Image
-          src="https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg?auto=compress&cs=tinysrgb&w=300"
+          src={`http://localhost:4000/public/img/products/${product?.images[2]}`}
           layout="fill"
           objectFit="cover"
+          className="group-hover:scale-110 duration-300 ease-in-out bg-[#f6f6f6] "
         />
+
+        {/* <div className="absolute bg-blue-400 top-2 right-2 px-2  text-white rounded font-semibold ">
+          <Typography className="font-semibold ">Sale</Typography>
+        </div> */}
+
+        <IconButton
+        onClick={()=>  dispatch(addItemToCart(product?._id))}
+        className="absolute opacity-0  translate-y-14 group-hover:translate-y-0 group-hover:opacity-100 bg-primary-main hover:bg-primary-dark text-white shadow-lg shadow-primary-main/50 duration-300 ease-linear bottom-2 right-2 transition-all">
+          <AddShoppingCartRoundedIcon />
+        </IconButton>
       </div>
 
-      <div className="text-center px-4 ">
-        <Typography variant="h5">Nike Air 1</Typography>
-        <Typography variant="h6" className="font-semibold">
-          Rs. 5,000
-        </Typography>
-        <div className="flex items-center justify-center">
-          
-        <Rating name="read-only" value={value} readOnly  className="text-amber-500 "/>
-          <p className="text-sm font-bold text-gray-400">(12)</p>
-        </div>
-
-        <Button
-          variant="outlined"
-          className=" w-full font-bold border-dark text-dark hover:bg-primary-main hover:text-white duration-200 ease-linear"
+      <div className=" px-4 space-y-4 mt-6 text-gray-700">
+        <Typography
+          variant="subtitle1"
+          className="font-semibold hover:underline cursor-pointer hover:text-gray-900 line-clamp-1"
+          onClick={() => clickHandler(product)}
         >
-          Add to cart
-        </Button>
+          {product?.name}
+        </Typography>
+
+        <div className="flex justify-between items-center pb-2">
+          <Rating
+            name="read-only"
+            value={value}
+            readOnly
+            className="text-amber-500 text-sm"
+          />
+
+          <Typography variant="h6" className="font-semibold">
+            {`Rs. ${new Intl.NumberFormat("en-NP").format(product?.price)}`}
+          </Typography>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

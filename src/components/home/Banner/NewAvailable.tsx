@@ -25,9 +25,9 @@ const items = [
   },
 ];
 
-export default function NewAvaliable() {
+export default function NewAvailable() {
   return (
-    <div className=" grid grid-cols-1 md:grid-cols-3 md:space-x-6" >
+    <div className=" grid grid-cols-1 md:grid-cols-3 gap-6" >
       {items.map((item: any, i: number): any => (
         
         <New

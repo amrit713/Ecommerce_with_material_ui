@@ -5,7 +5,7 @@ import ProfileTitle from "./ProfileTitle";
 
 function EditProfile() {
   return (
-    <div className="mt-24">
+    <div className="">
       <ProfileTitle title="edit profile" btn_title="my profile" />
 
       <div className="bg-white p-4  mt-8 rounded-md box_shadow ">
@@ -35,7 +35,7 @@ function EditProfile() {
           <TextField label="Phone Number" InputProps={{ sx: { height: 40 } }} />
         </div>
 
-        <Button variant="contained" className="capitalize mt-4">
+        <Button variant="contained"  className="capitalize mt-4">
           {" "}
           save change
         </Button>

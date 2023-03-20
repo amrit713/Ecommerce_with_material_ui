@@ -6,6 +6,7 @@ import Layout from "../src/layout/Layout";
 const checkoutPage: NextPage = () => {
   return (
     <Layout>
+    
       <Checkout />
     </Layout>
   );

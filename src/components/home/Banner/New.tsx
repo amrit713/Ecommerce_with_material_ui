@@ -13,7 +13,7 @@ interface props{
 
 function New(props:props) {
   return (
-    <div className="relative   mb-10">
+    <div className="relative ">
       <div className="relative w-[full] h-[16vh]  opacity-60">
         <Image
           src={props.image}

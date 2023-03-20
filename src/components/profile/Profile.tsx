@@ -8,7 +8,7 @@ import ProfileTitle from "./ProfileTitle";
 
 function Profile() {
   return (
-    <div className="mt-24">
+    <div className="">
       <div className="w-[25%]"></div>
 
       <div className=" md:w-[75%]">

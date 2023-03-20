@@ -7,6 +7,7 @@ import Layout from "../src/layout/Layout";
 const paymentPage:NextPage = () =>{
  return (
  <Layout>
+  
    <Payment/>
  </Layout>
  )   

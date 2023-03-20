@@ -9,7 +9,7 @@ import { Button, TextField } from "@mui/material";
 
 function Payment() {
   return (
-    <div className=" mt-24 flex flex-col-reverse md:flex-row md:space-x-8 md:space-y-0">
+    <div className="  flex flex-col-reverse md:flex-row md:space-x-8 md:space-y-0">
       <div className="md:w-[75%] ">
         <div className=" space-y-6 p-4 bg-white rounded-sm box_shadow">
           <Accordion

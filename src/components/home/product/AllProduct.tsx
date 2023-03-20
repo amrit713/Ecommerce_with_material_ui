@@ -1,42 +1,42 @@
+import { Button, Typography } from "@mui/material";
 import React from "react";
-
-import { Pagination, Typography } from "@mui/material";
-
-
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 import Product from "./Product";
+import { useSelector } from "react-redux";
+
+
+interface IProducts {
+  products?: any[];
+}
 
 function AllProduct() {
+  const { products }: IProducts = useSelector(
+    (state:any) => state.products
+  );
+
   return (
-    <div className=" w-full ">
-
-        <Typography variant="h5" className="capitalize font-bold mb-4 ">
-         All Products
+    <div className="s-container">
+      <div className="flex items-center justify-between">
+        <Typography variant="h6" className="capitalize font-bold mb-4 ">
+          All Product
         </Typography>
-       
-  
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-4">
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-      </div>
-      <div className="flex justify-center mt-8">
-        <Pagination count={10} variant="outlined" shape="rounded"/>
-
+        <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out">
+          View All <ArrowRightAltIcon className=" text-[24px] space-x-2 " />
+        </Button>
       </div>
 
-        
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
+        {products?.map((product) => (
+          <Product key={product._id} product={product} />
+        ))}
+      </div>
+      <div className="flex items-center justify-center mt-6">
+        <Button variant="contained" className=" ">
+          Load More{" "}
+        </Button>
+      </div>
+    </div>
   );
 }
 

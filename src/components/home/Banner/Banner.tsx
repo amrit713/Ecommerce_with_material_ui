@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Typography, Button } from "@mui/material";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import Image from "next/image";
@@ -19,7 +20,7 @@ const items = [
 
 function Banner() {
   return (
-    <div className=" flex space-x-4 mt-24 ">
+    <div className=" flex gap-4  ">
       <Carousel
         className="w-full "
         indicators={false}

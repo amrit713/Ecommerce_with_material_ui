@@ -6,6 +6,7 @@ import Layout from "../../src/layout/Layout";
 const editPage: NextPage = () => {
   return (
     <Layout>
+    
       <EditProfile  />
     </Layout>
   );
