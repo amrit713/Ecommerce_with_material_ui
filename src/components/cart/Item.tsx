@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { IconButton, Typography } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/Add";
@@ -20,6 +20,16 @@ function Item(props: any) {
 
   const removeItemFromCartHandler = (id: string) => {
     dispatch(removeItemFromCart(id));
+  };
+
+  const increaseQuantityHandler = (id: string) => {
+    dispatch(increaseQuantity(id));
+    console.log("called");
+  };
+
+  const decreaseQuantityHandler = (id: string) => {
+    dispatch(decreaseQuantity(id));
+    console.log("called decrease");
   };
 
   return (
@@ -46,21 +56,18 @@ function Item(props: any) {
               {`Rs. ${new Intl.NumberFormat("en-NP").format(totalPrice)}`}
             </span>{" "}
           </Typography>
-          <div
-            className="flex space-x-2 items-center"
-            onClick={() => dispatch(decreaseQuantity(item.product))}
-          >
-            <IconButton>
+          <div className="flex space-x-2 items-center">
+            <IconButton
+              disabled={item.quantity <= 1 ? true : false}
+              onClick={() => decreaseQuantityHandler(item.product)}
+            >
               <RemoveRoundedIcon />
             </IconButton>
             <Typography variant="h6">{item.quantity}</Typography>
 
             <IconButton
               className=" border-primary-dark"
-              onClick={() => {
-                console.log(item.quantity)
-                return dispatch(increaseQuantity(item.product));
-              }}
+              onClick={() => increaseQuantityHandler(item.product)}
             >
               <AddRoundedIcon />
             </IconButton>

@@ -6,8 +6,7 @@ import { Button, IconButton, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import AddShoppingCartRoundedIcon from "@mui/icons-material/AddShoppingCartRounded";
 import { useRouter } from "next/router";
-import { UrlObject } from "url";
-import { useDispatch } from "react-redux";
+
 import { getProduct } from "../../../../store/action/productAction";
 import { useTypedDispatch } from "../../../../store/store";
 import { addItemToCart } from "../../../../store/action/cartAction";

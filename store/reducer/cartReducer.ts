@@ -35,8 +35,6 @@ export const cartReducer = (
           cartItems: [...state.cartItems, item],
         };
       }
-    case SET_CART_ITEMS:
-      return action.payload;
 
     case REMOVE_FROM_CART:
       return {
@@ -44,27 +42,25 @@ export const cartReducer = (
         cartItems: state.cartItems.filter((i) => i.product !== action.payload),
       };
 
-      //FIXME: NOT WROKING PROPERLY
-    case INCREASE_QUANTITY:
-      return {
-        ...state,
-        cartItems: state.cartItems.map((item: any) => {
-          if (item.product === action.payload.itemId) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-        }),
-      };
-
+    //FIXME: NOT WROKING PROPERLY
     case DECREASE_QUANTITY:
       return {
         ...state,
-        cartItems: state.cartItems.map((item: any) => {
-          if (item.product === action.payload.itemId) {
-            if (item.quantity > 1) {
-              return { ...item, quantity: item.quantity - 1 };
-            }
-          }
-        }),
+        cartItems: state.cartItems.map((item) =>
+          item.product === action.payload.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        ),
+      };
+
+    case INCREASE_QUANTITY:
+      return {
+        ...state,
+        cartItems: state.cartItems.map((item) =>
+          item.product === action.payload.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
       };
 
     default:

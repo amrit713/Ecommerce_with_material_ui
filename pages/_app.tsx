@@ -10,11 +10,7 @@ import { Router } from "next/router";
 import LinearProgress from "@mui/material/LinearProgress";
 import React from "react";
 
-
-
-
 function MyApp({ Component, pageProps }: AppProps) {
-  
   const [loading, setLoading] = React.useState(false);
 
   Router.events.on("routeChangeStart", (url: any) => {
@@ -25,19 +21,16 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-
-        
-          {loading && (
-            <div className="w-full fixed top-0 z_index  ">
-              <LinearProgress color="primary" />
-            </div>
-          )}
-          <Component {...pageProps} />
-       
-      </Provider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        {loading && (
+          <div className="w-full fixed top-0 z_index  ">
+            <LinearProgress color="primary" />
+          </div>
+        )}
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Provider>
   );
 }
 

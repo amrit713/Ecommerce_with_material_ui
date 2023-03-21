@@ -8,9 +8,9 @@ import { useSelector } from "react-redux";
 
 
 function FeaturedProduct() {
-  const { products } = useTypedSelector(
-    (state:any) => state.products
-  );
+
+  const {products} = useSelector((state:any)=>state.products)
+  
  
 
   const featuredProducts = products?.filter((product: any) => {

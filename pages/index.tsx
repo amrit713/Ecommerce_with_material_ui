@@ -1,6 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Banner from "../src/components/home/Banner/Banner";
+import axios from "axios";
 
 import FeaturedProduct from "../src/components/home/product/FeaturedProduct";
 import NewAvailable from "../src/components/home/Banner/NewAvailable";
@@ -13,23 +14,22 @@ import Brands from "../src/components/home/Banner/Brands";
 import { useEffect } from "react";
 import { useTypedDispatch } from "../store/store";
 import { getProducts } from "../store/action/productAction";
-import dynamic from "next/dynamic";
 
 const Home: NextPage = () => {
   const dispatch = useTypedDispatch();
 
- 
-
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
   return (
     <Layout>
       <Banner />
       <Info />
+
       <FeaturedProduct />
       <NewAvailable />
-      <DealProduct />
+     <DealProduct  />
       <Brands />
       <AllProduct />
     </Layout>

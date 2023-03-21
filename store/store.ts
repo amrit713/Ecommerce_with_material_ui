@@ -8,6 +8,7 @@ import {
   productsReducer,
 } from "./reducer/productReducer";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { createWrapper } from "next-redux-wrapper";
 
 const clientSide = typeof window !== "undefined";
 
@@ -19,10 +20,6 @@ const rootReducer = combineReducers({
 
 // test
 
-
-
-
-
 // Configure the persist reducer to only persist the cartItems portion of the state
 
 // cart: {
@@ -32,9 +29,7 @@ const rootReducer = combineReducers({
 //       : []
 //     : [],
 // },
-let initialState = {
-  
-};
+let initialState = {};
 
 // redux-persist
 const middleware = [thunk];
@@ -45,8 +40,12 @@ export const store: any = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
+
+
 export type TypedDispatch = typeof store.dispatch;
 export type ReduxState = ReturnType<typeof rootReducer>;
 
 export const useTypedDispatch = () => useDispatch<TypedDispatch>();
 export const useTypedSelector: TypedUseSelectorHook<ReduxState> = useSelector;
+
+
