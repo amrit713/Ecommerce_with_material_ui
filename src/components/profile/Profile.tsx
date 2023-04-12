@@ -12,7 +12,7 @@ function Profile() {
       <div className="w-[25%]"></div>
 
       <div className=" md:w-[75%]">
-        <ProfileTitle title="my profile" btn_title="edit profile" />
+        <ProfileTitle title="my profile" btn_title="edit profile" link="profile/edit" />
         {/* profile */}
 
         <MyProfile />

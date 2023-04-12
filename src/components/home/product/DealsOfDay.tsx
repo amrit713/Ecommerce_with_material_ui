@@ -7,10 +7,8 @@ import ProductEmbla from "./ProductEmbla";
 import { useSelector } from "react-redux";
 
 
-function DealProduct() {
-  const { products } = useSelector(
-    (state: any) => state.products
-  );
+function DealProduct({products}:{products:any[]}) {
+
 
   const dealOfDay = products?.filter((product: any) => {
     return product.brand === "adidas";

@@ -1,22 +1,14 @@
 import { Button, Typography } from "@mui/material";
 import React from "react";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import {  useTypedSelector} from "../../../../store/store";
 
 import ProductEmbla from "./ProductEmbla";
 import { useSelector } from "react-redux";
 
-
-function FeaturedProduct() {
-
-  const {products} = useSelector((state:any)=>state.products)
-  
- 
-
+function FeaturedProduct({ products }: { products: any[] }) {
   const featuredProducts = products?.filter((product: any) => {
     return product.brand === "nike";
   });
-  
 
   return (
     <div className="s-container">
@@ -29,7 +21,7 @@ function FeaturedProduct() {
         </Button>
       </div>
 
-      <ProductEmbla products = {featuredProducts} />
+      <ProductEmbla products={featuredProducts} />
     </div>
   );
 }

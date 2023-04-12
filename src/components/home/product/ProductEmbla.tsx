@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {IconButton} from "@mui/material"
 import { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -21,6 +21,7 @@ const options: EmblaOptionsType = {
  
 
 function ProductEmbla({products}:IProps) {
+ 
 
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
  
@@ -44,7 +45,7 @@ function ProductEmbla({products}:IProps) {
         {products?.map((product) => {
           return (
             <div className="embla_slide" key={product.id}>
-              <Product product = {product} />
+              <Product  product = {product} />
             </div>
           );
         })}

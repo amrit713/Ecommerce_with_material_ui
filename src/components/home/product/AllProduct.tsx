@@ -1,20 +1,15 @@
 import { Button, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 import Product from "./Product";
 import { useSelector } from "react-redux";
 
-
 interface IProducts {
   products?: any[];
 }
 
-function AllProduct() {
-  const { products }: IProducts = useSelector(
-    (state:any) => state.products
-  );
-
+function AllProduct({ products }: { products: any[] }) {
   return (
     <div className="s-container">
       <div className="flex items-center justify-between">

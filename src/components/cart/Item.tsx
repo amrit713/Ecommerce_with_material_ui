@@ -6,79 +6,112 @@ import AddRoundedIcon from "@mui/icons-material/Add";
 import RemoveRoundedIcon from "@mui/icons-material/Remove";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useTypedDispatch } from "../../../store/store";
+import { ICartItem, ICartProduct } from "../../interface/ICart";
 import {
-  decreaseQuantity,
-  increaseQuantity,
-  removeItemFromCart,
-} from "../../../store/action/cartAction";
+  decreaseQty,
+  increaseQty,
+  removeFromCart,
+} from "../../../store/slice/cartSlice";
+import { AnimatePresence, motion } from "framer-motion";
 
-function Item(props: any) {
+const itemVariants = {
+  hidden: {
+    opacity: 0, x:-150
+  },
+  visible: { opacity: 1, x:0 },
+  
+};
+
+interface IProps {
+  item: ICartItem;
+}
+
+function Item(props: IProps) {
   const { item } = props;
   const dispatch = useTypedDispatch();
+  const [show, setShow] = useState("");
 
-  let [totalPrice] = useState(item.price * item.quantity);
-
-  const removeItemFromCartHandler = (id: string) => {
-    dispatch(removeItemFromCart(id));
+  const removeItemFromCartHandler = (product: ICartProduct) => {
+    dispatch(removeFromCart(product));
+ setShow(product.id)
   };
 
-  const increaseQuantityHandler = (id: string) => {
-    dispatch(increaseQuantity(id));
+  const increaseQuantityHandler = (product: ICartProduct) => {
+    dispatch(increaseQty(product));
+
     console.log("called");
   };
 
-  const decreaseQuantityHandler = (id: string) => {
-    dispatch(decreaseQuantity(id));
-    console.log("called decrease");
+  const decreaseQuantityHandler = (product: ICartProduct) => {
+    dispatch(decreaseQty(product));
   };
 
   return (
-    <div className="bg-white p-2 rounded-md box_shadow flex justify-between items-start">
-      <div className="flex space-x-4 items-center">
-        <div className="  relative  w-[6rem] h-[6rem] rounded-md overflow-hidden  ">
-          <Image
-            src={`http://localhost:4000/public/img/products/${item.image}`}
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
-        <div className="">
-          <Typography variant="h6" className="capitalize">
-            {" "}
-            {item.name}
-          </Typography>
-          <Typography variant="subtitle1" className="text-dark">
-            {" "}
-            {`Rs. ${new Intl.NumberFormat("en-NP").format(item.price)}`} x{" "}
-            {item.quantity}{" "}
-            <span className="text-primary-main font-semibold mx-2">
+    <AnimatePresence>
+      <motion.div
+        variants={itemVariants}
+       
+        animate="visible"
+        exit="hidden"
+        transition={{
+          duration:".3"
+        }}
+        key={show}
+        className="bg-white p-2 rounded-md box_shadow flex justify-between items-start"
+      >
+        <div className="flex space-x-4 items-center duration-300">
+          <div className="  relative  w-[6rem] h-[6rem] rounded-md overflow-hidden bg-gray-100  ">
+            <Image
+              src={`http://localhost:4000/public/img/products/${item.product.image}`}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="">
+            <Typography className="capitalize text-sm sm:text-lg font-semibold">
               {" "}
-              {`Rs. ${new Intl.NumberFormat("en-NP").format(totalPrice)}`}
-            </span>{" "}
-          </Typography>
-          <div className="flex space-x-2 items-center">
-            <IconButton
-              disabled={item.quantity <= 1 ? true : false}
-              onClick={() => decreaseQuantityHandler(item.product)}
+              {item.product.name}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              className="text-dark text-sm sm:text-md"
             >
-              <RemoveRoundedIcon />
-            </IconButton>
-            <Typography variant="h6">{item.quantity}</Typography>
+              {" "}
+              {`Rs. ${new Intl.NumberFormat("en-NP").format(
+                item.product.price
+              )}`}{" "}
+              x {item.qty}{" "}
+              <span className="text-primary-main font-semibold mx-2">
+                {" "}
+                {`Rs. ${new Intl.NumberFormat("en-NP").format(
+                  item.qty * item.product.price
+                )}`}
+              </span>{" "}
+            </Typography>
+            <div className="flex space-x-2 items-center ">
+              <IconButton
+                disabled={item.qty <= 1 ? true : false}
+                onClick={() => decreaseQuantityHandler(item.product)}
+              >
+                <RemoveRoundedIcon />
+              </IconButton>
+              <Typography variant="h6">{item.qty}</Typography>
 
-            <IconButton
-              className=" border-primary-dark"
-              onClick={() => increaseQuantityHandler(item.product)}
-            >
-              <AddRoundedIcon />
-            </IconButton>
+              <IconButton
+                className=" border-primary-dark"
+                onClick={() => increaseQuantityHandler(item.product)}
+              >
+                <AddRoundedIcon />
+              </IconButton>
+            </div>
           </div>
         </div>
-      </div>
 
-      <IconButton onClick={() => removeItemFromCartHandler(item.product)}>
-        <CloseRoundedIcon />
-      </IconButton>
-    </div>
+        <IconButton onClick={() => removeItemFromCartHandler(item.product)}>
+          <CloseRoundedIcon />
+        </IconButton>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 

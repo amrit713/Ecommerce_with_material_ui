@@ -2,9 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import { Typography,Rating } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
+
 
 function Review() {
   var dt = new Date();

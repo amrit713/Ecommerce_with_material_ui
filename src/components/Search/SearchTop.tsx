@@ -1,13 +1,33 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Typography, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { IProduct } from "../../interface/IProduct";
+import { useTypedDispatch, useTypedSelector } from "../../../store/store";
+import { searchAction } from "../../../store/action/searchAction";
+import { StarRateTwoTone } from "@mui/icons-material";
 
-function SearchTop() {
+function SearchTop({
+  products,
+  category,
+}: {
+  products: IProduct[];
+  category: string;
+}) {
   const [sort, setSort] = React.useState("Relevance");
+  const dispatch = useTypedDispatch();
+  const search = useTypedSelector(state=> state.search)
+
+  const sortHandler = (name: string) => {
+    dispatch(searchAction({searchName:search.searchName, sort: name , category:search.category}));
+  };
+
+  useEffect(()=>{
+    setSort("Relevance")
+  }, [search.category])
 
   const handleChange = (event: SelectChangeEvent) => {
     setSort(event.target.value as string);
@@ -16,17 +36,17 @@ function SearchTop() {
   return (
     <div className="flex justify-between items-center px-4 py-2 bg-white rounded-md shadow-sm">
       <div className="flex flex-col">
-        <Typography className="text-lg font-medium">
+        <Typography className="text-lg font-medium capitalize">
           {/* FIXME: later */}
-          Searching for "mobile Phone"
+          Searching for "{category}"
         </Typography>
-        <Typography className="text-sm text-gray-500">
-          "48" results found
+        <Typography className="text-sm text-gray-500 capitalize">
+          "{products ? products.length : 0}" results found
         </Typography>
       </div>
 
       <div className="flex items-center space-x-2">
-        <Typography className="text-sm ">Short By:</Typography>
+        <Typography className="text-sm ">Sort By:</Typography>
         <FormControl>
           <InputLabel id="demo-simple-select-label"></InputLabel>
           <Select
@@ -36,10 +56,15 @@ function SearchTop() {
             size="small"
             onChange={handleChange}
           >
-            <MenuItem value="Relevance">Relevance</MenuItem>
-            <MenuItem value="Low to High">Low to High</MenuItem>
-            <MenuItem value="High to Low">High to Low</MenuItem>
-            <MenuItem value="Date">Date</MenuItem>
+            <MenuItem value="Relevance" onClick={() => sortHandler("createdAt")}>
+              Relevance
+            </MenuItem>
+            <MenuItem value="Low to High" onClick={() => sortHandler("price")}>
+              Low to High
+            </MenuItem>
+            <MenuItem value="High to Low" onClick={() => sortHandler("-price")}>
+              High to Low
+            </MenuItem>
           </Select>
         </FormControl>
       </div>

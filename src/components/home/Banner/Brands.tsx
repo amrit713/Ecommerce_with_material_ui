@@ -15,7 +15,7 @@ import {
 
 import Autoplay from "embla-carousel-autoplay";
 
-const brands = [
+ export const  brands = [
   {
     name: "nike",
     icon: <SiNike size={74} />,

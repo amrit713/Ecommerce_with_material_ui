@@ -3,13 +3,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import { Button, Typography } from "@mui/material";
 
 import TemporaryDrawer from "./Drawer";
+import Link from "next/link";
 
 interface IProps {
-    title:string;
-    btn_title:string;
+  title: string;
+  btn_title: string;
 }
 
-function ProfileTitle(props:IProps) {
+function ProfileTitle(props: IProps) {
   return (
     <div className=" flex justify-between items-start ">
       <div className=" w-full space-y-4 md:flex md:space-y-0 items-center justify-between ">
@@ -19,9 +20,15 @@ function ProfileTitle(props:IProps) {
             {props.title}
           </Typography>
         </div>
-        <Button className="shadow-none capitalize font-semibold bg-red-50">
-          {props.btn_title}
-        </Button>
+        <Link
+          href={`${
+            props.btn_title === "my profile" ? "/profile" : "/profile/edit"
+          }`}
+        >
+          <Button className="shadow-none capitalize font-semibold bg-red-50">
+            {props.btn_title}
+          </Button>
+        </Link>
       </div>
 
       <div className="md:hidden">

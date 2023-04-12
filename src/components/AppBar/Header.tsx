@@ -1,32 +1,21 @@
-import { InputBase, Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 
 import Badge from "@mui/material/Badge";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 import React from "react";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 
 import Link from "next/link";
 import { useTypedSelector } from "../../../store/store";
+import ProfileHeader from "./ProfileHeader";
+import SearchBar from "./SearchBar";
 
 function Header() {
-  const {cartItems} = useTypedSelector((state:any)=>state.cart)
+  const { isAuthenticated } = useTypedSelector((state) => state.auth);
+  const { cartItems } = useTypedSelector((state: any) => state.cart);
 
-  const [category, setCategory] = React.useState("All Categories");
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = (event: any) => {
-    setAnchorEl(null);
-    if (event.target.innerText) setCategory(event.target.innerText);
-  };
   return (
     <div className=" fixed flex-col sm:flex-row w-full top-0 bg-white m-auto px-8  xl:px-[180px]  py-4  header_shadow  flex items-center justify-between z_index_header gap-6 ">
       <div className="flex justify-center items-center space-x-4">
@@ -52,40 +41,8 @@ function Header() {
       </div>
 
       {/* middle */}
-      <div className=" flex items-center space-x-2  border-gray-400 shadow-md shadow-dark/10 px-2 py-1  rounded-full overflow-hidden hover:border-primary-main duration-300 ">
-        <SearchOutlinedIcon className=" ml-1 text-gray-400" />
-        <InputBase placeholder="Search shoes..." className="bg-transparent" />
 
-        <Button
-          className="rounded-r-full capitalize whitespace-nowrap "
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          variant="contained"
-        >
-          {category}
-        </Button>
-
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          <MenuItem onClick={handleClose}>All Categories</MenuItem>
-          <MenuItem onClick={handleClose}>Sneakers</MenuItem>
-          <MenuItem onClick={handleClose}>Running</MenuItem>
-          <MenuItem onClick={handleClose}>Formal</MenuItem>
-          <MenuItem onClick={handleClose}>Casual</MenuItem>
-          <MenuItem onClick={handleClose}>Sports</MenuItem>
-        </Menu>
-      </div>
-
+      <SearchBar />
       <div className=" hidden sm:flex item-center gap-4">
         <IconButton aria-label="user" className="hover:text-primary-main   ">
           <Badge badgeContent={1} color="primary">
@@ -101,9 +58,18 @@ function Header() {
           </IconButton>
         </Link>
 
-        <IconButton aria-label="user" className=" hover:text-primary-main  ">
-          <PersonOutlinedIcon className="text-[28px] text-gray-500 " />
-        </IconButton>
+        {isAuthenticated ? (
+          <ProfileHeader />
+        ) : (
+          <Link href="/login">
+            <IconButton
+              aria-label="user"
+              className=" hover:text-primary-main  "
+            >
+              <PersonOutlinedIcon className="text-[28px] text-gray-500 " />
+            </IconButton>
+          </Link>
+        )}
       </div>
     </div>
   );

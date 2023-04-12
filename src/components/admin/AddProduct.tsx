@@ -4,17 +4,52 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {
+  SiPuma,
+  SiNike,
+  SiAdidas,
+  SiFila,
+  SiReebok,
+  SiNewbalance,
+  SiJordan,
+} from "react-icons/si";
+
+export const brands = [
+  "nike",
+  "adidas",
+  "newblance",
+  "jordan",
+  "rebook",
+  "puma",
+  "fila",
+];
 
 function AddProduct() {
-  const [Categories, setCategories] = React.useState("");
+  const [categories, setCategories] = React.useState("");
+  const [brand, setBrand] = React.useState("");
+  const [image, setImage] = React.useState([]);
 
-  const handleChange = (event: SelectChangeEvent) => {
+  console.log(image);
+
+  const handleCategory = (event: SelectChangeEvent) => {
     setCategories(event.target.value as string);
+  };
+  const handleBrand = (event: SelectChangeEvent) => {
+    setBrand(event.target.value as string);
+  };
+
+  const fileOnChangeHandler = (e: any) => {
+    if (e.target.files.length <= 3) {
+      setImage(e.target.files);
+    }
   };
 
   return (
     <div className="">
-      <Typography variant="h6" className="capitalize font-semibold max-w-[80%] m-auto mb-4">
+      <Typography
+        variant="h6"
+        className="capitalize font-semibold max-w-[80%] m-auto mb-4"
+      >
         add new product
       </Typography>
       <div className="bg-white  max-w-[80%] p-[28px] m-auto ">
@@ -32,13 +67,15 @@ function AddProduct() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={Categories}
+                value={categories}
                 label="Categories"
-                onChange={handleChange}
+                onChange={handleCategory}
               >
-                <MenuItem value={10}>Sneakers</MenuItem>
-                <MenuItem value={20}>Running</MenuItem>
-                <MenuItem value={30}>Sports</MenuItem>
+                <MenuItem value={"sneaker"}>Sneaker</MenuItem>
+                <MenuItem value={"running"}>Running</MenuItem>
+                <MenuItem value={"sport"}>Sports</MenuItem>
+                <MenuItem value={"basketball"}>Basketball</MenuItem>
+                <MenuItem value={"Casual"}>Casual</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -47,7 +84,9 @@ function AddProduct() {
           <div className="">
             <div className=" w-full flex flex-col items-center space-y-3 py-10 bg-gray-50 rounded-md">
               <Typography className="text-gray-500">
-                Drag & drop product image here
+                {!image
+                  ? "Drag & drop product image here"
+                  : `${image.length} image selected`}
               </Typography>
               <Typography className="text-gray-300">
                 {" "}
@@ -59,7 +98,14 @@ function AddProduct() {
                 className="rounded-full "
                 component="label"
               >
-                <input type="file" hidden /> Select Image
+                <input
+                  type="file"
+                  multiple={true}
+                  onChange={fileOnChangeHandler}
+                  accept="image/*"
+                  hidden
+                />{" "}
+                Select Image
               </Button>
             </div>
           </div>
@@ -93,18 +139,25 @@ function AddProduct() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={Categories}
+                value={brand}
                 label="Brand"
-                onChange={handleChange}
+                onChange={handleBrand}
               >
-                <MenuItem value={10}>Nike</MenuItem>
-                <MenuItem value={20}>Adidas</MenuItem>
-                <MenuItem value={30}>Fila</MenuItem>
+                {brands.map((brand: any) => (
+                  <MenuItem
+                    key={brand}
+                    value={brand}
+                    className=" text-gray-600 capitalize "
+                  >
+                    {" "}
+                    {brand}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>
 
-          <Button variant="contained" > Save Product</Button>
+          <Button variant="contained"> Save Product</Button>
         </form>
       </div>
     </div>

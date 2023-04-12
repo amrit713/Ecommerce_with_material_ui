@@ -1,9 +1,12 @@
-import { TextField, Typography } from "@mui/material";
-import React from "react";
+import { TextField, Button, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Rating from "@mui/material/Rating";
+import { useTypedDispatch, useTypedSelector } from "../../../store/store";
+import { searchAction } from "../../../store/action/searchAction";
+import CategoryBrand from "./CategoryBrand";
 
 type AppProps = {
   value: number;
@@ -22,63 +25,139 @@ function Rate(props: AppProps): JSX.Element {
   );
 }
 
-function Category() {
+function Category({ category }: { category: string }) {
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+
+  const dispatch = useTypedDispatch();
+
+  const categoryHandler = (e: any) => {
+    dispatch(
+      searchAction({
+        category: e.target.innerText.toLowerCase(),
+        minPrice,
+        maxPrice,
+      })
+    );
+  };
+
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+
+    dispatch(searchAction({ minPrice, maxPrice }));
+    setMinPrice(null);
+    setMaxPrice(null)
+   
+  };
+
+  const handleKeyPress = (e: any) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      submitHandler(e);
+    }
+  };
+
   return (
-    <div className=" md:w-[25%] bg-white md:max-h-[132vh] p-4 ">
+    <div className=" md:w-[25%] bg-white md:max-h-[85vh] p-4 ">
       <div className="space-y-2">
         <Typography className="font-medium">Categories</Typography>
         <div className="text-sm text-gray-500 space-y-1 ">
-          <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
-            Sneakers
+          <Typography
+            className={`cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300 hover:text-primary-main hover:scale-105 ${
+              category === "sneaker"
+                ? "bg-gray-100 text-primary-main scale-105"
+                : ""
+            }`}
+            onClick={categoryHandler}
+          >
+            Sneaker
           </Typography>
-          <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
+          <Typography
+            className={`cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300 hover:text-primary-main hover:scale-105 ${
+              category === "running"
+                ? "bg-gray-100 text-primary-main scale-105"
+                : ""
+            }`}
+            onClick={categoryHandler}
+          >
             Running{" "}
           </Typography>
-          <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
-            BasketBall
+          <Typography
+            className={`cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300 hover:text-primary-main hover:scale-105 ${
+              category === "basketball"
+                ? "bg-gray-100 text-primary-main scale-105"
+                : ""
+            }`}
+            onClick={categoryHandler}
+          >
+            Basketball
           </Typography>
-          <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
-            Leather
+          <Typography
+            className={`cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300 hover:text-primary-main hover:scale-105 ${
+              category === "casual"
+                ? "bg-gray-100 text-primary-main scale-105"
+                : ""
+            }`}
+            onClick={categoryHandler}
+          >
+            Casual
           </Typography>
-          <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
+          {/* <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
             Hiking Boots
-          </Typography>
-          <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
-            Heels
+          </Typography> */}
+          <Typography
+            className={`cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300 hover:text-primary-main hover:scale-105 ${
+              category === "sport"
+                ? "bg-gray-100 text-primary-main scale-105"
+                : ""
+            }`}
+            onClick={categoryHandler}
+          >
+            Sport
           </Typography>
         </div>
       </div>
       <div className="border-solid border-b border border-gray-200 my-4" />
 
       <div className="space-y-2">
-        <Typography className="font-medium">Price Range</Typography>
+        <form action="" onSubmit={submitHandler}>
+          <Typography className="font-medium">Price Range</Typography>
 
-        <div className="flex items-center space-x-2 justify-center ">
-          <TextField type="number" id="outlined-basic" placeholder="0" />
+          <div className="flex items-center space-x-2 justify-center ">
+            <TextField
+              type="number"
+              id="outlined-basic"
+              placeholder="0"
+              value={minPrice}
+              onChange={(e: any) => setMinPrice(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
 
-          <TextField type="number" id="outlined-basic" placeholder="5,000" />
-        </div>
+            <TextField
+              type="number"
+              id="outlined-basic"
+              placeholder="5,000"
+              value={maxPrice}
+              onChange={(e: any) => setMaxPrice(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </div>
+          <Button type="submit" className="hidden">
+            search
+          </Button>
+        </form>
       </div>
+
       <div className="border-solid border-b border border-gray-200 my-4" />
 
       <div className="space-y-2">
         <Typography className="font-medium">Brands</Typography>
-        <FormGroup>
-          <FormControlLabel control={<Checkbox />} label="Nike" />
-          <FormControlLabel control={<Checkbox />} label="Adidas" />
-          <FormControlLabel control={<Checkbox />} label="Fila" />
-          <FormControlLabel control={<Checkbox />} label="New Balance" />
-          <FormControlLabel control={<Checkbox />} label="Vans" />
-          <FormControlLabel control={<Checkbox />} label="Puma" />
-          <div className="border-solid border-b border border-gray-200 my-4" />
-          <FormControlLabel control={<Checkbox />} label="On Sale" />
-          <FormControlLabel control={<Checkbox />} label="In Stock" />
-          <FormControlLabel control={<Checkbox />} label="Featured" />
-        </FormGroup>
+        {/*! brand */}
+        <CategoryBrand />
       </div>
       <div className="border-solid border-b border border-gray-200 my-4" />
       <div className="space-y-2">
-        <Typography className="font-medium">Ratings</Typography>
+        {/* <Typography className="font-medium">Ratings</Typography>
         <FormGroup>
           <FormControlLabel control={<Checkbox />} label={<Rate value={0} />} />
           <FormControlLabel control={<Checkbox />} label={<Rate value={1} />} />
@@ -86,9 +165,9 @@ function Category() {
           <FormControlLabel control={<Checkbox />} label={<Rate value={3} />} />
           <FormControlLabel control={<Checkbox />} label={<Rate value={4} />} />
           <FormControlLabel control={<Checkbox />} label={<Rate value={5} />} />
-        </FormGroup>
+        </FormGroup> */}
       </div>
-      <div className="border-solid border-b border border-gray-200 my-4" />
+      {/* <div className="border-solid border-b border border-gray-200 my-4" /> */}
     </div>
   );
 }

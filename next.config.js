@@ -8,10 +8,10 @@ const nextConfig = {
       "images.pexels.com",
       "images.unsplash.com",
       "cdn.pixabay.com",
-      "localhost"
+      "localhost",
     ],
   },
-  reactStrictMode:false
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

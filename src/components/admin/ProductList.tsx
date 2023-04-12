@@ -4,14 +4,14 @@ import TitleAdmin from "./TitleAdmin";
 
 
 
-function ProductList() {
+function ProductList({products}:any) {
   return (
     <div>
       <div className="">
         <TitleAdmin />
 
         <div className="mt-8">
-          <ProductTable />
+          <ProductTable products= {products} />
         </div>
       </div>
     </div>

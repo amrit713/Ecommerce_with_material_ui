@@ -4,20 +4,38 @@ import { Typography, Button, Rating } from "@mui/material";
 import Image from "next/image";
 import ProductImage from "./ProductImage";
 import { EmblaOptionsType } from "embla-carousel-react";
+
+import { IProduct } from "../../interface/IProduct";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
-import { addItemToCart } from "../../../store/action/cartAction";
+import { addToCart } from "../../../store/slice/cartSlice";
+import { ICartItem } from "../../interface/ICart";
+import toast from "react-hot-toast";
+
 
 const OPTIONS: EmblaOptionsType = {};
 const SLIDE_COUNT = 3;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
-function Detail({ product }: any) {
+function Detail({ product }: { product: IProduct }) {
   const dispatch = useTypedDispatch();
+  const { cartItems } = useTypedSelector((state) => state.cart);
+
+  const item = cartItems.find((item) => item.product.id === product.id);
 
 
 
   const addToCartHandler = () => {
-    dispatch(addItemToCart(product._id));
+    const cartItem: ICartItem = {
+      product: {
+        id: product.id,
+        name: product.name,
+        image: product.images[2],
+        price: product.price,
+      },
+      qty: 1,
+    };
+    if(!item) toast.success("Item added to cart");
+    dispatch(addToCart(cartItem));
   };
 
   return (
@@ -40,7 +58,7 @@ function Detail({ product }: any) {
         >
           {product?.stock >= 1 ? "Stock Available" : "Out Of Stock"}
         </Typography>
-        <Typography variant="h4" className="font-semibold">
+        <Typography variant="h4" className="font-semibold capitalize">
           {" "}
           {product?.name}
         </Typography>
@@ -76,6 +94,7 @@ function Detail({ product }: any) {
         <Button variant="contained" size="large" onClick={addToCartHandler}>
           Add To Cart
         </Button>
+      
       </div>
     </div>
   );

@@ -18,7 +18,8 @@ const items = [
   },
 ];
 
-function Banner() {
+function Banner(props:any) {
+  
   return (
     <div className=" flex gap-4  ">
       <Carousel
