@@ -3,8 +3,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import Review from "./Review";
 import Rating from '@mui/material/Rating';
+import { IProduct } from "../../interface/IProduct";
 
 interface IProps {
+  product:IProduct
   toggle: boolean;
 }
 
@@ -22,9 +24,11 @@ function Reviews(props: IProps) {
         >
           {/* review */}
           <div className="space-y-8">
-            <Review />
-            <Review />
-            <Review />
+            {props.product?.reviews?.map((review:any)=>(
+              <div key={review.id}><Review review={review}/></div>
+            ))}
+            
+            
           </div>
           <div className="space-y-4 mt-8">
             <Typography variant="h5" className="font-semibold">

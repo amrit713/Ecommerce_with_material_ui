@@ -38,6 +38,8 @@ function Detail({ product }: { product: IProduct }) {
     dispatch(addToCart(cartItem));
   };
 
+ 
+
   return (
     <div className="  sm:flex sm:space-x-6 ">
       {/* image */}
@@ -75,12 +77,12 @@ function Detail({ product }: { product: IProduct }) {
           <div className="flex items-center justify-center">
             <Rating
               name="read-only"
-              value={3}
+              value={product?.ratingsAverage}
               readOnly
               className="text-amber-500 "
             />
             <Typography className="text-sm font-bold text-gray-400">
-              (12)
+              ({product?.ratingsQuantity})
             </Typography>
           </div>
         </div>

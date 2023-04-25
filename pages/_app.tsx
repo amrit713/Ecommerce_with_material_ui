@@ -12,10 +12,15 @@ import { store } from "../store/store";
 import { getMe } from "../store/action/authAction";
 
 import { Toaster } from "react-hot-toast";
+import Layout from "../src/layout/Layout";
+
+// export function reportWebVitals(metric: any) {
+//   // console.log(metric)
+//   console.log(`${(metric.startTime - metric.value)/1000} sec`)
+// }
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = React.useState(false);
- 
 
   useEffect(() => {
     store.dispatch(getMe());
@@ -29,17 +34,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <Providers>
-      <ThemeProvider theme={theme}>
-        {loading && (
-          <div className="w-full fixed top-0 z_index  ">
-            <LinearProgress color="primary" />
-          </div>
-        )}
-         <Toaster position="top-center" reverseOrder={false} />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </Providers>
+    <React.StrictMode>
+      <Providers>
+        <ThemeProvider theme={theme}>
+          {loading && (
+            <div className="w-full fixed top-0 z_index  ">
+              <LinearProgress color="primary" />
+            </div>
+          )}
+          <Toaster position="top-center" reverseOrder={false} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </Providers>
+    </React.StrictMode>
   );
 }
 

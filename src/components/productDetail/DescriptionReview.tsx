@@ -8,9 +8,10 @@ import { IProduct } from "../../interface/IProduct";
 interface IProps{
   description:string;
   relatedProducts: IProduct[];
+  product:IProduct
 }
 
-function DescriptionReview({description, relatedProducts}:IProps) {
+function DescriptionReview({description, relatedProducts, product}:IProps) {
   const [toggle, setToggle] = useState(true);
   
 
@@ -27,7 +28,7 @@ function DescriptionReview({description, relatedProducts}:IProps) {
           className={`  ${toggle ? "text-dark" : ""} font-semibold`}
           onClick={(e) => setToggle(false)}
         >
-          Review (12)
+          Review ({product?.ratingsQuantity})
         </Button>
       </div>
 
@@ -35,7 +36,7 @@ function DescriptionReview({description, relatedProducts}:IProps) {
 
       <Description toggle={toggle} description={description} />
 
-      <Reviews toggle={toggle} />
+      <Reviews toggle={toggle} product={product} />
       <motion.div
         initial={{ opacity: 0.9 }}
         animate={{ opacity: 1 }}

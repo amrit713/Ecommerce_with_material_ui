@@ -12,8 +12,8 @@ function FeaturedProduct({ products }: { products: any[] }) {
 
   return (
     <div className="s-container">
-      <div className="flex items-center justify-between">
-        <Typography variant="h6" className="capitalize font-bold mb-4 ">
+      <div className="flex items-center justify-between mb-4">
+        <Typography variant="h6" className="capitalize font-bold  ">
           Featured Products
         </Typography>
         <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out">

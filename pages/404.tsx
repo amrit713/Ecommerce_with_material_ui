@@ -13,7 +13,7 @@ function pageNotFound() {
       duration:".8"
     }}
     className="">
-      <div className="relative h-[60vh] max-w-[70%] m-auto mt-32 hover:scale-105 duration-300 ease-in-out cursor-pointer ">
+      <div className="relative h-[50vh] max-w-[70%] m-auto mt-32 hover:scale-105 duration-300 ease-in-out cursor-pointer ">
         <Image
           layout="fill"
           alt="page Not found"

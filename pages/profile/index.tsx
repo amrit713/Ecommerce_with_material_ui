@@ -5,10 +5,6 @@ import Layout from "../../src/layout/Layout";
 import withAuth from "../../src/protectedRoute/withAuth";
 
 const myProfile: NextPage = () => {
-  return (
-    <Layout>
-      <Profile />
-    </Layout>
-  );
+  return <Profile />;
 };
 export default withAuth(myProfile);

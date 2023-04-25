@@ -10,7 +10,7 @@ module.exports = {
           main: "#D34457",
           dark: "#E4484E",
         },
-        secondary: "#222935",
+        secondary: "#0f172a",
         light: "#2196F3",
         googleBlue: "#4c8bf5",
         googleDark: "#0648f9",

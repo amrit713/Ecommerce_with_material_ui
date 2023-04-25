@@ -132,7 +132,7 @@ const login: NextPage = () => {
           LogIn
         </Button>
       </form>
-
+{/* 
       <Button
         variant="contained"
         size="large"
@@ -140,7 +140,7 @@ const login: NextPage = () => {
       >
         <GoogleIcon className="mx-2" />
         LogIn With Google
-      </Button>
+      </Button> */}
 
       <Typography variant="subtitle1">
         {" "}

@@ -2,7 +2,7 @@ import React from "react";
 import { Typography } from "@mui/material";
 import { EmblaOptionsType } from "embla-carousel-react";
 import useEmblaCarousel from "embla-carousel-react";
-import EmblaCarousel from "embla-carousel";
+
 import {
   SiPuma,
   SiNike,
@@ -15,38 +15,6 @@ import {
 
 import Autoplay from "embla-carousel-autoplay";
 
- export const  brands = [
-  {
-    name: "nike",
-    icon: <SiNike size={74} />,
-  },
-
-  {
-    name: "adidas",
-    icon: <SiAdidas size={74} />,
-  },
-  {
-    name: "newblance",
-    icon: <SiNewbalance size={74} />,
-  },
-  {
-    name: "jordan",
-    icon: <SiJordan size={74} />,
-  },
-  {
-    name: "reebok",
-    icon: <SiReebok size={74} />,
-  },
-  {
-    name: "fila",
-    icon: <SiFila size={74} />,
-  },
-  {
-    name: "puma",
-    icon: <SiPuma size={74} />,
-  },
-];
-
 //FIXME: should be replace
 const options: EmblaOptionsType = {
   containScroll: "trimSnaps",
@@ -55,7 +23,7 @@ const options: EmblaOptionsType = {
 function Brands() {
   const autoplay = React.useRef(Autoplay({ delay: 3000 }));
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [autoplay.current]);
+  const [emblaRef] = useEmblaCarousel(options, [autoplay.current]);
 
   return (
     <div className="">
@@ -66,11 +34,27 @@ function Brands() {
       <div className=" embla  relative cursor-pointer  w-full p-8 bg-white rounded-md shadow-sm ">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container space-x-[9rem]">
-            {brands.map((brand) => (
-              <div className="embla_slide" key={brand.name}>
-                {brand.icon}
-              </div>
-            ))}
+            <div className="embla_slide">
+              <SiNike size={72} />
+            </div>
+            <div className="embla_slide">
+              <SiAdidas size={72} />
+            </div>
+            <div className="embla_slide">
+              <SiJordan size={72} />
+            </div>
+            <div className="embla_slide">
+              <SiPuma size={72} />
+            </div>
+            <div className="embla_slide">
+              <SiReebok size={72} />
+            </div>
+            <div className="embla_slide">
+              <SiNewbalance size={72} />
+            </div>
+            <div className="embla_slide">
+              <SiFila size={72} />
+            </div>
           </div>
         </div>
       </div>

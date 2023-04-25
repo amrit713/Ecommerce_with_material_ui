@@ -183,14 +183,14 @@ const signup: NextPage = () => {
         </Button>
       </form>
 
-      <Button
+      {/* <Button
         variant="contained"
         size="large"
         className="w-full bg-googleBlue duration-300 hover:bg-googleDark  "
       >
         <GoogleIcon className="mx-2" />
         Sign Up With Google
-      </Button>
+      </Button> */}
 
       <Typography variant="subtitle1">
         {" "}

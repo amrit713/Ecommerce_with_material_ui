@@ -8,12 +8,15 @@ import {
   Typography,
 } from "@mui/material";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
+import PersonIcon from "@mui/icons-material/Person";
 import ProfileTitle from "./ProfileTitle";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { updateMe } from "../../../store/action/authAction";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import Dashboard from "./Dashboard";
+
 
 const initialValues = {
   email: "",
@@ -56,94 +59,100 @@ function EditProfile() {
   });
 
   return (
-    <div className="">
-      <ProfileTitle title="edit profile" btn_title="my profile" />
-      <form action="" onSubmit={handleSubmit}>
-        <div className="bg-white p-4  mt-8 rounded-md box_shadow ">
-          <div className="flex items-end space-x-4">
-            <div className="relative w-[5rem] h-[5rem] ">
-              <Avatar
-                src={`http://localhost:4000/public/img/users/${userInfo.profilePic}`}
-                className="w-[5rem] h-[5rem]"
-              />
-              <IconButton
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#e5e7eb",
-                  },
-                }}
-                component="label"
-                className="absolute -bottom-2 -right-2 bg-gray-200 text-primary-main "
-              >
-                {" "}
-                <AddPhotoAlternateOutlinedIcon />{" "}
-                <input
-                  type="file"
-                  hidden
-                  name="file"
-                  // onTouchEnd={touched}
-                  onChange={(e: any) =>
-                    setFieldValue("file", e.target.files[0])
-                  }
-                  onBlur={handleBlur}
-                  accept="image/*"
+    <div className="md:flex">
+      <div className=" hidden md:flex md:w-[25%]">
+        <Dashboard />
+      </div>
+
+      <div className="md:w-[75%]">
+        <ProfileTitle icon= {<PersonIcon className="text-[32px] text-dark" />} title="edit profile" btn_title="my profile"  path="/profile"/>
+        <form action="" onSubmit={handleSubmit}>
+          <div className="bg-white p-4  mt-8 rounded-md box_shadow ">
+            <div className="flex items-end space-x-4">
+              <div className="relative w-[5rem] h-[5rem] ">
+                <Avatar
+                  src={`http://localhost:4000/public/img/users/${userInfo.profilePic}`}
+                  className="w-[5rem] h-[5rem]"
                 />
-              </IconButton>
+                <IconButton
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#e5e7eb",
+                    },
+                  }}
+                  component="label"
+                  className="absolute -bottom-2 -right-2 bg-gray-200 text-primary-main "
+                >
+                  {" "}
+                  <AddPhotoAlternateOutlinedIcon />{" "}
+                  <input
+                    type="file"
+                    hidden
+                    name="file"
+                    // onTouchEnd={touched}
+                    onChange={(e: any) =>
+                      setFieldValue("file", e.target.files[0])
+                    }
+                    onBlur={handleBlur}
+                    accept="image/*"
+                  />
+                </IconButton>
+              </div>
+              <Typography className="text-[12px] text-gray-600">
+                {values.file.name}
+              </Typography>
             </div>
-            <Typography className="text-[12px] text-gray-600">
-              {values.file.name}
-            </Typography>
-          </div>
-          <div className=" mt-8 grid gap-4 grid-cols-1 md:grid-cols-2 ">
-            <TextField
-              label="First Name"
-              InputProps={{ sx: { height: 40 } }}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.firstName}
-              name="firstName"
-            />
+            <div className=" mt-8 grid gap-4 grid-cols-1 md:grid-cols-2 ">
+              <TextField
+                label="First Name"
+                InputProps={{ sx: { height: 40 } }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.firstName}
+                name="firstName"
+              />
 
-            <TextField
-              name="lastName"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.lastName}
-              label="Last Name"
-              InputProps={{ sx: { height: 40 } }}
-            />
-            <TextField
-              name="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              label="Email"
-              InputProps={{ sx: { height: 40 } }}
-            />
-            <TextField
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.phoneNo}
-              type="tel"
-              name="phoneNo"
-              label="Phone Number"
-              InputProps={{ sx: { height: 40 } }}
-            />
-          </div>
+              <TextField
+                name="lastName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.lastName}
+                label="Last Name"
+                InputProps={{ sx: { height: 40 } }}
+              />
+              <TextField
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                label="Email"
+                InputProps={{ sx: { height: 40 } }}
+              />
+              <TextField
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.phoneNo}
+                type="tel"
+                name="phoneNo"
+                label="Phone Number"
+                InputProps={{ sx: { height: 40 } }}
+              />
+            </div>
 
-          <Button
-            variant="contained"
-            className="capitalize mt-4 space-x-4"
-            type="submit"
-          >
-            {" "}
-            <span>save change</span>{" "}
-            {loading && (
-              <CircularProgress className="text-white text-sm " size={18} />
-            )}
-          </Button>
-        </div>
-      </form>
+            <Button
+              variant="contained"
+              className="capitalize mt-4 space-x-4"
+              type="submit"
+            >
+              {" "}
+              <span>save change</span>{" "}
+              {loading && (
+                <CircularProgress className="text-white text-sm " size={18} />
+              )}
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

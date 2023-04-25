@@ -37,24 +37,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 function productDetailPage({ product, relatedProducts }: IProps) {
- 
   return (
     <div className="">
-      <Layout>
-        <ProductDetail product={product} relatedProducts={relatedProducts} />
-      </Layout>
+      <ProductDetail product={product} relatedProducts={relatedProducts} />
     </div>
   );
 }
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const { data } = await axios.get(`http://localhost:4000/api/v1/product`);
-//   return {
-//     paths: data.data.products.map((product: any) => ({
-//       params: { id: product._id.toString() },
-//     })),
-//     fallback: false,
-//   };
-// };
 
 export default productDetailPage;

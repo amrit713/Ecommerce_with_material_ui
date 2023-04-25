@@ -1,34 +1,33 @@
-import React from "react";
+import React, { AllHTMLAttributes, HtmlHTMLAttributes } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import { Button, Typography } from "@mui/material";
 
 import TemporaryDrawer from "./Drawer";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface IProps {
+  btn_title?: string;
+  path?: string;
   title: string;
-  btn_title: string;
+  icon:any
 }
 
 function ProfileTitle(props: IProps) {
+  const router = useRouter()
   return (
     <div className=" flex justify-between items-start ">
       <div className=" w-full space-y-4 md:flex md:space-y-0 items-center justify-between ">
         <div className=" flex  items-center space-x-2">
-          <PersonIcon className="text-[32px] text-dark" />
+          {props.icon}
           <Typography variant="h5" className="capitalize font-semibold">
             {props.title}
           </Typography>
         </div>
-        <Link
-          href={`${
-            props.btn_title === "my profile" ? "/profile" : "/profile/edit"
-          }`}
-        >
-          <Button className="shadow-none capitalize font-semibold bg-red-50">
-            {props.btn_title}
-          </Button>
-        </Link>
+
+       {props.btn_title &&( <Button className="shadow-none capitalize font-semibold bg-red-50" onClick={()=>router.push(props.path)}>
+          {props.btn_title}
+        </Button>)}
       </div>
 
       <div className="md:hidden">

@@ -1,12 +1,15 @@
-import { TextField, Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { TextField, Button, Typography, Divider } from "@mui/material";
+import React, {  useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Rating from "@mui/material/Rating";
 import { useTypedDispatch, useTypedSelector } from "../../../store/store";
 import { searchAction } from "../../../store/action/searchAction";
-import CategoryBrand from "./CategoryBrand";
+// import CategoryBrand from "./CategoryBrand";
+import dynamic from "next/dynamic";
+
+const CategoryBrand = dynamic(() => import('./CategoryBrand'), { ssr: false })
 
 type AppProps = {
   value: number;
@@ -46,8 +49,7 @@ function Category({ category }: { category: string }) {
 
     dispatch(searchAction({ minPrice, maxPrice }));
     setMinPrice(null);
-    setMaxPrice(null)
-   
+    setMaxPrice(null);
   };
 
   const handleKeyPress = (e: any) => {
@@ -59,7 +61,7 @@ function Category({ category }: { category: string }) {
 
   return (
     <div className=" md:w-[25%] bg-white md:max-h-[85vh] p-4 ">
-      <div className="space-y-2">
+      <div className="space-y-2 mb-4">
         <Typography className="font-medium">Categories</Typography>
         <div className="text-sm text-gray-500 space-y-1 ">
           <Typography
@@ -102,9 +104,7 @@ function Category({ category }: { category: string }) {
           >
             Casual
           </Typography>
-          {/* <Typography className="cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300">
-            Hiking Boots
-          </Typography> */}
+         
           <Typography
             className={`cursor-pointer hover:bg-gray-100 px-2 py-1 rounded-sm duration-300 hover:text-primary-main hover:scale-105 ${
               category === "sport"
@@ -117,9 +117,9 @@ function Category({ category }: { category: string }) {
           </Typography>
         </div>
       </div>
-      <div className="border-solid border-b border border-gray-200 my-4" />
+      <Divider orientation="horizontal" sx={{ borderStyle: "dashed" }} />
 
-      <div className="space-y-2">
+      <div className="space-y-2 my-4">
         <form action="" onSubmit={submitHandler}>
           <Typography className="font-medium">Price Range</Typography>
 
@@ -129,14 +129,17 @@ function Category({ category }: { category: string }) {
               id="outlined-basic"
               placeholder="0"
               value={minPrice}
+              size="small"
               onChange={(e: any) => setMinPrice(e.target.value)}
               onKeyPress={handleKeyPress}
             />
+             <p>-</p>
 
             <TextField
               type="number"
               id="outlined-basic"
               placeholder="5,000"
+              size="small"
               value={maxPrice}
               onChange={(e: any) => setMaxPrice(e.target.value)}
               onKeyPress={handleKeyPress}
@@ -148,26 +151,19 @@ function Category({ category }: { category: string }) {
         </form>
       </div>
 
-      <div className="border-solid border-b border border-gray-200 my-4" />
+      <Divider orientation="horizontal" sx={{ borderStyle: "dashed" }} />
 
-      <div className="space-y-2">
+      <div className="space-y-2 my-4">
         <Typography className="font-medium">Brands</Typography>
         {/*! brand */}
-        <CategoryBrand />
+      
+           <CategoryBrand />
       </div>
-      <div className="border-solid border-b border border-gray-200 my-4" />
+      <Divider orientation="horizontal" sx={{ borderStyle: "dashed" }} />
       <div className="space-y-2">
-        {/* <Typography className="font-medium">Ratings</Typography>
-        <FormGroup>
-          <FormControlLabel control={<Checkbox />} label={<Rate value={0} />} />
-          <FormControlLabel control={<Checkbox />} label={<Rate value={1} />} />
-          <FormControlLabel control={<Checkbox />} label={<Rate value={2} />} />
-          <FormControlLabel control={<Checkbox />} label={<Rate value={3} />} />
-          <FormControlLabel control={<Checkbox />} label={<Rate value={4} />} />
-          <FormControlLabel control={<Checkbox />} label={<Rate value={5} />} />
-        </FormGroup> */}
+        
       </div>
-      {/* <div className="border-solid border-b border border-gray-200 my-4" /> */}
+    
     </div>
   );
 }

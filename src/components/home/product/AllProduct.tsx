@@ -1,19 +1,18 @@
 import { Button, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 import Product from "./Product";
-import { useSelector } from "react-redux";
+import { IProduct } from "../../../interface/IProduct";
 
-interface IProducts {
-  products?: any[];
-}
 
-function AllProduct({ products }: { products: any[] }) {
+
+
+function AllProduct({ products }: { products:IProduct[] }) {
   return (
     <div className="s-container">
-      <div className="flex items-center justify-between">
-        <Typography variant="h6" className="capitalize font-bold mb-4 ">
+      <div className="flex items-center justify-between mb-4">
+        <Typography variant="h6" className="capitalize font-bold  ">
           All Product
         </Typography>
         <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out">

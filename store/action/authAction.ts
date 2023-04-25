@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import Cookie from "js-cookie";
+
 import { IUser } from "../../src/interface/IUser";
 
 const API_URL = "http://localhost:4000";
@@ -34,8 +34,6 @@ export const registerUser = createAsyncThunk(
         },
         config
       );
-
-      console.log(data);
 
       return data;
     } catch (error: any) {
@@ -89,7 +87,7 @@ export const getMe = createAsyncThunk("user/me", async () => {
     const { data } = await axios.get(`${API_URL}/api/v1/user/me`, {
       withCredentials: true,
     });
-    console.log(data);
+
     return data;
   } catch (error: any) {
     return error.response.data.message;
@@ -168,8 +166,7 @@ export const resetPasswordUser = createAsyncThunk(
 export const updateMe = createAsyncThunk(
   "update/me",
   async (form: any, { rejectWithValue }) => {
-   console.log(form)
-   
+    console.log(form);
 
     try {
       const { data } = await axios.patch(

@@ -4,11 +4,6 @@ import EditProfile from "../../src/components/profile/EditProfile";
 import Layout from "../../src/layout/Layout";
 
 const editPage: NextPage = () => {
-  return (
-    <Layout>
-    
-      <EditProfile  />
-    </Layout>
-  );
+  return <EditProfile />;
 };
 export default editPage;

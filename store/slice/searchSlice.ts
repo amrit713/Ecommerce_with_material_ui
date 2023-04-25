@@ -19,8 +19,8 @@ const initialState: {
   error: null,
   brand: null,
   searchName: null,
-  minPrice:null,
-  maxPrice:null
+  minPrice: null,
+  maxPrice: null,
 };
 
 const searchSlice = createSlice({
@@ -35,15 +35,15 @@ const searchSlice = createSlice({
     builder.addCase(searchAction.fulfilled, (state: any, { payload }: any) => {
       state.loading = false;
       state.products = payload.data;
-      state.products = payload.data;
+
       state.brand = null;
       payload.minPrice
-      ? (state.minPrice = payload.minPrice)
-      : (state.minPrice = null);
+        ? (state.minPrice = payload.minPrice)
+        : (state.minPrice = null);
 
       payload.maxPrice
-      ? (state.maxPrice = payload.maxPrice)
-      : (state.maxPrice = null);
+        ? (state.maxPrice = payload.maxPrice)
+        : (state.maxPrice = null);
       payload.searchName
         ? (state.searchName = payload.searchName)
         : (state.searchName = null);

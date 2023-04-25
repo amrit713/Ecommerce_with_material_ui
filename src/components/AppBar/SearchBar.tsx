@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FormEvent, useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Button, InputBase } from "@mui/material";
@@ -26,10 +26,9 @@ function SearchBar() {
     setCategory(search.category);
   }, [search.category]);
 
-  const submitHandler = (e: any) => {
+  const submitHandler = (e: FormEvent<HTMLFormElement> | any) => {
     e.preventDefault();
     handleClose(e);
- 
 
     const parameter = {
       category:
@@ -41,9 +40,10 @@ function SearchBar() {
 
     dispatch(searchAction(parameter));
 
-
-
-    router.asPath !== "/product/search" && router.push("/product/search");
+    if (router.pathname !== "/product/search") {
+      router.push(`/product/search`, undefined, { shallow: true });
+    }
+    e.target.removeEventListener("click", submitHandler);
   };
 
   const handleKeypress = (e: any) => {
@@ -69,6 +69,7 @@ function SearchBar() {
       <div className=" flex items-center space-x-2  border-gray-400 shadow-md shadow-dark/10 px-2 py-1  rounded-full overflow-hidden hover:border-primary-main duration-300 ">
         <SearchOutlinedIcon className=" ml-1 text-gray-400" />
         <InputBase
+          type="search"
           placeholder="Search shoes..."
           className="bg-transparent"
           value={productName}
@@ -89,8 +90,17 @@ function SearchBar() {
         </Button>
 
         <Menu
+          sx={{ mt: ".4rem" }}
           id="basic-menu"
           anchorEl={anchorEl}
+          PaperProps={{
+            sx: {
+              width: "200px",
+              borderRadius: "6px",
+              boxShadow: "0px 6px 15px 0px rgba(0,0,0,0.1)",
+              color: "rgb(71 85 105)",
+            },
+          }}
           open={open}
           onClose={handleClose}
           MenuListProps={{

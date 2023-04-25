@@ -20,7 +20,7 @@ export default function ProductDetail({product, relatedProducts}:IProps) {
       <Detail  product = {product} />
       {/* description and review */}
 
-      <DescriptionReview description = {product?.description} relatedProducts={relatedProducts}/>
+      <DescriptionReview description = {product?.description} relatedProducts={relatedProducts} product={product}/>
     </div>
   );
 }

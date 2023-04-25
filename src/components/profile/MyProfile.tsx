@@ -3,20 +3,24 @@ import EmailIcon from "@mui/icons-material/Email";
 import { Avatar, Typography } from "@mui/material";
 import Image from "next/image";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+
 import ProfileItem from "./ProfileItem";
 import { useTypedSelector } from "../../../store/store";
+
 
 function MyProfile() {
   const { userInfo }: { userInfo: any } = useTypedSelector(
     (state) => state.auth
   );
 
+ 
+
   return (
     <div>
       <div className="bg-white p-4  mt-8 rounded-md box_shadow flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Avatar className="relative bg-primary-main/90 w-[7rem] h-[7rem]">
-          {userInfo.profilePic ? (
+          {userInfo?.profilePic ? (
                 <Image
                   alt="profileImage"
                   src={`http://localhost:4000/public/img/users/${userInfo.profilePic}`}
@@ -82,7 +86,7 @@ function MyProfile() {
 
         <div className="border-solid border p-2 text-center rounded-md border-gray-200">
           <Typography className="text-gray-600 text-sm"> Phone</Typography>
-          <Typography className="font-medium"> +977 {userInfo.phoneNo? userInfo.phoneNo:null}</Typography>
+          <Typography className="font-medium"> +977 {userInfo?.phoneNo? userInfo.phoneNo:null}</Typography>
         </div>
       </div>
     </div>

@@ -5,13 +5,14 @@ export interface IProduct {
   id: string;
   _id: string;
   price: number;
-  review?: any[];
+  reviews?: any[];
   stock: number;
-  ratingAverage: number;
-  ratingQuantity: number;
+  ratingsAverage: number;
+  ratingsQuantity: number;
   createdAt?: Date;
   images: string[];
   brand:string
+  
 }
 
 

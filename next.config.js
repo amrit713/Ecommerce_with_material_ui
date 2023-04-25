@@ -11,7 +11,7 @@ const nextConfig = {
       "localhost",
     ],
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;

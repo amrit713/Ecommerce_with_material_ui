@@ -1,3 +1,5 @@
+"use client";
+
 import { Typography } from "@mui/material";
 import React, { useState } from "react";
 import {
@@ -47,11 +49,9 @@ export const brands = [
 export default function CategoryBrand(props: any) {
   const dispatch = useTypedDispatch();
   const search = useTypedSelector((state) => state.search);
- 
 
   const brandHandler = (event: any) => {
     dispatch(brandAction(event.target.innerText.toLowerCase()));
- 
   };
 
   return (
