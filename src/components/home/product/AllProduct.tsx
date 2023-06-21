@@ -15,7 +15,7 @@ function AllProduct({ products }: { products:IProduct[] }) {
         <Typography variant="h6" className="capitalize font-bold  ">
           All Product
         </Typography>
-        <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out">
+        <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out capitalize">
           View All <ArrowRightAltIcon className=" text-[24px] space-x-2 " />
         </Button>
       </div>
@@ -25,11 +25,11 @@ function AllProduct({ products }: { products:IProduct[] }) {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      <div className="flex items-center justify-center mt-6">
+      {/* <div className="flex items-center justify-center mt-6">
         <Button variant="contained" className=" ">
           Load More{" "}
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

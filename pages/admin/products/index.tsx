@@ -1,16 +1,13 @@
 import type { GetServerSideProps, NextPage } from "next";
 import ProductList from "../../../src/components/admin/ProductList";
-import EditProfile from "../../../src/components/profile/EditProfile";
 
-import Layout from "../../../src/layout/Layout";
 import axios from "axios";
+import restrictTo from "../../../src/protectedRoute/withRole";
+import withAuth from "../../../src/protectedRoute/withAuth";
+import withRole from "../../../src/protectedRoute/withRole";
 
 const produtsPage: NextPage = (props: any) => {
-  return (
-    <Layout>
-      <ProductList products={props.products} />
-    </Layout>
-  );
+  return <ProductList products={props.products} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -23,4 +20,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
   };
 };
 
-export default produtsPage;
+export default withRole(produtsPage, ["admin"]);

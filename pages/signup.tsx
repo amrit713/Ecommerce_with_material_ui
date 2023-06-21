@@ -25,7 +25,7 @@ const signup: NextPage = () => {
   const router = useRouter()
   const { errorRegister, isAuthenticated } = useTypedSelector((state) => state.auth);
   
-  const { values, errors, handleBlur, touched, handleChange, handleSubmit } =
+  const { values, errors, handleBlur, touched, handleChange, handleSubmit }=
     useFormik({
       initialValues: initialValues,
       validationSchema: signupSchema,
@@ -42,7 +42,7 @@ const signup: NextPage = () => {
     }, [isAuthenticated, router]);
 
   return (
-    <div className="bg-white mt-36  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
+    <div className="bg-white my-10  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
       <div className="">
         <Link href="/">
           <svg
@@ -157,7 +157,7 @@ const signup: NextPage = () => {
 
           {errorRegister ? <Alert severity="error">{errorRegister}</Alert> : null}
 
-          <div className="">
+          {/* <div className="">
             <div className="flex items-center">
               <Checkbox />
               <Typography
@@ -170,7 +170,7 @@ const signup: NextPage = () => {
                 </Button>
               </Typography>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <Button

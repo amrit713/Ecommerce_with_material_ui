@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
 
-import imageByIndex from "../../ImageIndex/imageByIndex";
+
 import { Thumb } from "./ThumbButton";
 
 type PropType = {
@@ -57,7 +57,10 @@ const ProductImage: React.FC<PropType> = (props) => {
                     objectFit="cover"
                     className="embla__slide__img"
                     src={images?`http://localhost:4000/public/img/products/${images[index]}`:''}
-                    alt="Your alt text"
+                    alt="product Image"
+                    quality={75}
+                    priority={false}
+                   
                   />
                 </div>
               </div>

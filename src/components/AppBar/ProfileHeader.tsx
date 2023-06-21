@@ -118,27 +118,41 @@ function ProfileHeader() {
 
         <Divider orientation="horizontal" sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={handleCloseUserMenu} className="mt-2">
-          <Link href="/profile">
+        {userInfo.role === "admin" && (
+          <Link href="/admin/products">
+            <MenuItem onClick={handleCloseUserMenu} className="mt-2">
+              <Typography
+                textAlign="center"
+                className="text-base  text-slate-600"
+              >
+                Admin
+              </Typography>
+            </MenuItem>
+          </Link>
+        )}
+        <Link href="/profile">
+          <MenuItem onClick={handleCloseUserMenu} className="mt-2">
             <Typography
               textAlign="center"
               className="text-base  text-slate-600"
             >
               Profile
             </Typography>
-          </Link>
-        </MenuItem>
+          </MenuItem>
+        </Link>
 
+        <Link href="/orders">
         <MenuItem onClick={handleCloseUserMenu}>
-          <Link href="/order">
+          
             <Typography
               textAlign="center"
               className="text-base  text-slate-600"
             >
               My Orders
             </Typography>
-          </Link>
+          
         </MenuItem>
+        </Link>
         <Divider orientation="horizontal" sx={{ borderStyle: "dashed" }} />
         <MenuItem onClick={handleCloseUserMenu}>
           <Typography

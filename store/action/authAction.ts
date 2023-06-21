@@ -138,6 +138,8 @@ export const resetPasswordUser = createAsyncThunk(
   "login/resetpassword",
   async ({ value, resetToken }: any, { rejectWithValue }: any) => {
     try {
+
+      console.log(value)
       const instance = axios.create({
         // withCredentials: true,
         baseURL: API_URL,
@@ -180,6 +182,35 @@ export const updateMe = createAsyncThunk(
         }
       );
 
+      return data;
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const addAddress = createAsyncThunk(
+  "address",
+  async (form: any, { rejectWithValue }) => {
+    console.log(form);
+
+    try {
+      const { data } = await axios.patch(
+        `${API_URL}/api/v1/user/addAddress`,
+        form,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      console.log(data);
       return data;
     } catch (error: any) {
       if (error.response && error.response.data.message) {

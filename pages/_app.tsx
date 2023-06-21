@@ -14,11 +14,6 @@ import { getMe } from "../store/action/authAction";
 import { Toaster } from "react-hot-toast";
 import Layout from "../src/layout/Layout";
 
-// export function reportWebVitals(metric: any) {
-//   // console.log(metric)
-//   console.log(`${(metric.startTime - metric.value)/1000} sec`)
-// }
-
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = React.useState(false);
 

@@ -11,17 +11,18 @@ function Review({ review }: any) {
         <Avatar
           alt="profileImage"
           src={`http://localhost:4000/public/img/users/${review.user.profilePic}`}
-          className="h-[4rem] w-[4rem] cursor-pointer"
+          className="h-[3rem] w-[3rem] cursor-pointer"
         />
 
         <div className="">
-          <Typography variant="subtitle1" className="font-medium ">
+          <Typography variant="subtitle1" className="font-semibold ">
             {`${review.user.firstName} ${review.user.lastName}`}
           </Typography>
 
           <div className="flex items-center    ">
             <Rating
               name="read-only"
+              size="small"
               value={review.rating}
               readOnly
               className="text-amber-500 "
@@ -32,14 +33,14 @@ function Review({ review }: any) {
             >
               {review.ratting}
             </Typography>
-            <Typography className=" font-medium text-gray-500 ml-4">
+            <Typography className=" font-medium text-slate-400 ml-4 text-sm">
             {moment(review.createdAt).fromNow()}
             </Typography>
           </div>
         </div>
       </div>
 
-      <Typography variant="subtitle1" className=" sm:w-[50rem] text-dark">
+      <Typography variant="subtitle1" className=" sm:w-[50rem] text-slate-600 font-medium">
         {review.review}
       </Typography>
     </div>

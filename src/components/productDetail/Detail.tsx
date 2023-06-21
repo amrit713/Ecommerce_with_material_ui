@@ -93,7 +93,7 @@ function Detail({ product }: { product: IProduct }) {
           </Typography>
         </div>
 
-        <Button variant="contained" size="large" onClick={addToCartHandler}>
+        <Button variant="contained" size="large" onClick={addToCartHandler} className="capitalize font-semibold">
           Add To Cart
         </Button>
       

@@ -1,14 +1,10 @@
 import type { NextPage } from "next";
-import Layout from "../../../src/layout/Layout";
-import AddProduct from "../../../src/components/admin/AddProduct";
 
-const addPage:NextPage = () =>{
- return (
- <Layout>
-  
-  <AddProduct/>
-  
- </Layout>
- )   
-} 
-export default addPage;
+import AddProduct from "../../../src/components/admin/AddProduct";
+import restrictTo from "../../../src/protectedRoute/withRole";
+import withRole from "../../../src/protectedRoute/withRole";
+
+const addPage: NextPage = () => {
+  return <AddProduct />;
+};
+export default withRole(addPage,["admin"]);

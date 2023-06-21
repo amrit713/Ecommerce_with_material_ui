@@ -17,7 +17,6 @@ import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import Dashboard from "./Dashboard";
 
-
 const initialValues = {
   email: "",
   firstName: "",
@@ -50,8 +49,6 @@ function EditProfile() {
       values.email && form.append("email", values.email);
       values.phoneNo && form.append("phoneNo", values.phoneNo);
 
-      console.log(values);
-
       dispatch(updateMe(form));
       toast.success("Profile Updated Successfully");
       router.push("/profile");
@@ -65,7 +62,12 @@ function EditProfile() {
       </div>
 
       <div className="md:w-[75%]">
-        <ProfileTitle icon= {<PersonIcon className="text-[32px] text-dark" />} title="edit profile" btn_title="my profile"  path="/profile"/>
+        <ProfileTitle
+          icon={<PersonIcon className="text-[32px] text-dark" />}
+          title="edit profile"
+          btn_title="my profile"
+          path="/profile"
+        />
         <form action="" onSubmit={handleSubmit}>
           <div className="bg-white p-4  mt-8 rounded-md box_shadow ">
             <div className="flex items-end space-x-4">

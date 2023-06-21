@@ -19,15 +19,29 @@ function SearchTop({
 }) {
   const [sort, setSort] = React.useState("Relevance");
   const dispatch = useTypedDispatch();
-  const search = useTypedSelector(state=> state.search)
+  const search = useTypedSelector((state) => state.search);
 
   const sortHandler = (name: string) => {
-    dispatch(searchAction({searchName:search.searchName, sort: name , category:search.category}));
+    category === "all categories"
+      ? dispatch(
+          searchAction({
+            searchName: search.searchName,
+            sort: name,
+            category: "",
+          })
+        )
+      : dispatch(
+          searchAction({
+            searchName: search.searchName,
+            sort: name,
+            category: search.category,
+          })
+        );
   };
 
-  useEffect(()=>{
-    setSort("Relevance")
-  }, [search.category])
+  useEffect(() => {
+    setSort("Relevance");
+  }, [search.category]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSort(event.target.value as string);
@@ -56,7 +70,10 @@ function SearchTop({
             size="small"
             onChange={handleChange}
           >
-            <MenuItem value="Relevance" onClick={() => sortHandler("createdAt")}>
+            <MenuItem
+              value="Relevance"
+              onClick={() => sortHandler("createdAt")}
+            >
               Relevance
             </MenuItem>
             <MenuItem value="Low to High" onClick={() => sortHandler("price")}>

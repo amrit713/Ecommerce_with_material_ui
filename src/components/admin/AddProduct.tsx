@@ -4,62 +4,83 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import {
-  SiPuma,
-  SiNike,
-  SiAdidas,
-  SiFila,
-  SiReebok,
-  SiNewbalance,
-  SiJordan,
-} from "react-icons/si";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
 
-export const brands = [
-  "nike",
-  "adidas",
-  "newblance",
-  "jordan",
-  "rebook",
-  "puma",
-  "fila",
-];
+import { useTypedDispatch } from "../../../store/store";
+import { addProductAction } from "../../../store/action/productAction";
+import toast from "react-hot-toast";
+import { ContactlessOutlined } from "@mui/icons-material";
+
+const initialValues = {
+  name: "",
+  category: "",
+  description: "",
+  brand: "",
+  price: 0,
+  stock: 0,
+  images: [],
+};
 
 function AddProduct() {
-  const [categories, setCategories] = React.useState("");
-  const [brand, setBrand] = React.useState("");
-  const [image, setImage] = React.useState([]);
+  const dispatch = useTypedDispatch();
 
-  console.log(image);
+  const router = useRouter();
 
-  const handleCategory = (event: SelectChangeEvent) => {
-    setCategories(event.target.value as string);
-  };
-  const handleBrand = (event: SelectChangeEvent) => {
-    setBrand(event.target.value as string);
-  };
+  const {
+    values,
+    errors,
+    handleBlur,
+    touched,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: initialValues,
+    // validationSchema: addProductSchema,
+    onSubmit: (values: any) => {
+      const form = new FormData();
 
-  const fileOnChangeHandler = (e: any) => {
-    if (e.target.files.length <= 3) {
-      setImage(e.target.files);
-    }
-  };
+      for (let i = 0; i < values.images.length; i++) {
+        values.images && form.append("images", values.images[i]);
+      }
+
+      values.name && form.append("name", values.name);
+      values.category && form.append("category", values.category);
+      values.description && form.append("description", values.description);
+      values.brand && form.append("brand", values.brand);
+      values.stock && form.append("stock", values.stock);
+      values.price && form.append("price", values.price);
+
+      
+    
+
+      dispatch(addProductAction(form));
+      toast.success("Product Added Successfully");
+      router.push("/admin/products")
+    },
+  });
 
   return (
     <div className="">
       <Typography
         variant="h6"
-        className="capitalize font-semibold max-w-[80%] m-auto mb-4"
+        className="capitalize font-semibold max-w-[100%] m-auto mb-4"
       >
         add new product
       </Typography>
-      <div className="bg-white  max-w-[80%] p-[28px] m-auto ">
-        <form action="" className="space-y-6">
+      <div className="bg-white  max-w-[100%] p-[28px] m-auto ">
+        <form action="" className="space-y-6" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-3 md:space-x-3 md:flex-row md:space-y-0">
             <TextField
               label="Product Name"
               className="w-full "
               placeholder="Product Name"
+              value={values.name}
+              onBlur={handleBlur}
+              onChange={handleChange}
               required
+              name="name"
             />
 
             <FormControl fullWidth>
@@ -67,15 +88,17 @@ function AddProduct() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={categories}
+                name="category"
+                value={values.category}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 label="Categories"
-                onChange={handleCategory}
               >
                 <MenuItem value={"sneaker"}>Sneaker</MenuItem>
                 <MenuItem value={"running"}>Running</MenuItem>
                 <MenuItem value={"sport"}>Sports</MenuItem>
                 <MenuItem value={"basketball"}>Basketball</MenuItem>
-                <MenuItem value={"Casual"}>Casual</MenuItem>
+                <MenuItem value={"casual"}>Casual</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -84,9 +107,9 @@ function AddProduct() {
           <div className="">
             <div className=" w-full flex flex-col items-center space-y-3 py-10 bg-gray-50 rounded-md">
               <Typography className="text-gray-500">
-                {!image
+                {!values.images
                   ? "Drag & drop product image here"
-                  : `${image.length} image selected`}
+                  : `${values.images.length} image selected`}
               </Typography>
               <Typography className="text-gray-300">
                 {" "}
@@ -101,8 +124,12 @@ function AddProduct() {
                 <input
                   type="file"
                   multiple={true}
-                  onChange={fileOnChangeHandler}
+                  onChange={(event) => {
+                    setFieldValue("images", event.currentTarget.files);
+                  }}
                   accept="image/*"
+                  name="images"
+                  onBlur={handleBlur}
                   hidden
                 />{" "}
                 Select Image
@@ -116,7 +143,11 @@ function AddProduct() {
             label="Description"
             className="w-full"
             required
+            value={values.description}
             placeholder="Description"
+            name="description"
+            onBlur={handleBlur}
+            onChange={handleChange}
           />
 
           <div className="flex flex-col space-y-3 md:space-x-3 md:flex-row md:space-y-0">
@@ -124,6 +155,10 @@ function AddProduct() {
               label="Price"
               className="w-full "
               placeholder="Price"
+              name="price"
+              // value={values.price}
+              onBlur={handleBlur}
+              onChange={handleChange}
               required
             />
 
@@ -131,7 +166,10 @@ function AddProduct() {
               label="Stock"
               className="w-full "
               placeholder="Stock"
-              required
+              name="stock"
+              // value={values.stock}
+              onBlur={handleBlur}
+              onChange={handleChange}
             />
 
             <FormControl fullWidth>
@@ -139,25 +177,26 @@ function AddProduct() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={brand}
+                value={values.brand}
                 label="Brand"
-                onChange={handleBrand}
+                onChange={handleChange}
+                name="brand"
               >
-                {brands.map((brand: any) => (
-                  <MenuItem
-                    key={brand}
-                    value={brand}
-                    className=" text-gray-600 capitalize "
-                  >
-                    {" "}
-                    {brand}
-                  </MenuItem>
-                ))}
+                <MenuItem value={"nike"}>Nike</MenuItem>
+                <MenuItem value={"adidas"}>Adidas</MenuItem>
+                <MenuItem value={"fila"}>Fila</MenuItem>
+                <MenuItem value={"newbalance"}>NewBalance</MenuItem>
+                <MenuItem value={"jordan"}>Jordan</MenuItem>
+                <MenuItem value={"puma"}>Puma</MenuItem>
+                <MenuItem value={"reebok"}>Reebok</MenuItem>
               </Select>
             </FormControl>
           </div>
 
-          <Button variant="contained"> Save Product</Button>
+          <Button variant="contained" type="submit">
+            {" "}
+            Save Product
+          </Button>
         </form>
       </div>
     </div>

@@ -23,7 +23,7 @@ const dashboardItems = [
   {
     name: "Order",
     icon: <ShoppingBagOutlinedIcon />,
-    path: "/order",
+    path: "/orders",
   },
   {
     name: "Wishlist",

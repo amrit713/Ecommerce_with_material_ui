@@ -8,6 +8,7 @@ import {
   forgotPasswordUser,
   resetPasswordUser,
   updateMe,
+  addAddress,
 } from "../action/authAction";
 
 const initialState = {
@@ -150,6 +151,20 @@ const authSlice = createSlice({
         state.userInfo = payload?.data.user;
       }),
       builder.addCase(updateMe.rejected, (state: any, { payload }: any) => {
+        state.loading = false;
+        state.errorLogin = payload;
+      });
+
+    //add address
+    builder.addCase(addAddress.pending, (state: any) => {
+      state.loading = true;
+      state.error = null;
+    }),
+      builder.addCase(addAddress.fulfilled, (state: any, { payload }: any) => {
+        state.loading = false;
+        state.userInfo = payload?.user;
+      }),
+      builder.addCase(addAddress.rejected, (state: any, { payload }: any) => {
         state.loading = false;
         state.errorLogin = payload;
       });

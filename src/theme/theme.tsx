@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Raleway", "sans-serif"].join(","),
+    fontFamily: ["Poppins", "sans-serif"].join(","),
   },
 
   palette: {

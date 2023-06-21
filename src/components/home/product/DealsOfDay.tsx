@@ -19,7 +19,7 @@ function DealProduct({products}:{products:any[]}) {
         <Typography variant="h6" className="capitalize font-bold  ">
           Deals of The Day
         </Typography>
-        <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out">
+        <Button className="text-gray-500 font-semibold hover:text-primary-main duration-200 ease-in-out capitalize ">
           View All <ArrowRightAltIcon className=" text-[24px] space-x-2 " />
         </Button>
       </div>

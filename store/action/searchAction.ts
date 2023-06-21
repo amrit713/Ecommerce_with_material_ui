@@ -6,12 +6,8 @@ const API_URL = "http://localhost:4000";
 export const searchAction = createAsyncThunk(
   "product/search",
   async (parameter: any) => {
-  
+    console.log(parameter)
     try {
-
-     
-      console.log("🚀 ~ file: searchAction.ts:13 ~ parameter:", parameter)
-
       let link = `${API_URL}/api/v1/product?${
         parameter.searchName ? `keyword=${parameter.searchName}` : ""
       }${parameter.category ? `&category=${parameter.category}` : ""}${
@@ -25,8 +21,8 @@ export const searchAction = createAsyncThunk(
         data: data.data.products,
         category: parameter.category,
         searchName: parameter.searchName,
-        minPrice:parameter.minPrice,
-        maxPrice:parameter.maxPrice
+        minPrice: parameter.minPrice,
+        maxPrice: parameter.maxPrice,
       };
     } catch (error: any) {
       return error.response.data.message;
@@ -48,3 +44,5 @@ export const brandAction = createAsyncThunk(
     }
   }
 );
+
+

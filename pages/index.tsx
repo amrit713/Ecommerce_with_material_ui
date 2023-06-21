@@ -1,4 +1,4 @@
-import type { NextPage, GetServerSideProps } from "next";
+import type { NextPage, GetServerSideProps, GetStaticProps } from "next";
 import { Suspense, lazy } from "react";
 import Banner from "../src/components/home/Banner/Banner";
 import axios from "axios";
@@ -23,7 +23,7 @@ interface IProps {
 
 const Home: NextPage<IProps> = ({ products }) => {
   return (
-    <div>
+    <div className="space-y-4">
       <Banner products={products} />
 
       <Suspense>
@@ -42,7 +42,8 @@ const Home: NextPage<IProps> = ({ products }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async (content) => {
+  console.log(content)
   const { data } = await axios.get("http://localhost:4000/api/v1/product");
 
   return {

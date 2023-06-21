@@ -17,7 +17,7 @@ function Description(props: IProps) {
           // exit={{ opacity: 0 }}
           transition={{ duration: 0.5}}
         >
-          <Typography variant="subtitle1" className=" sm:w-[50rem] text-dark ">
+          <Typography variant="subtitle1" className=" sm:w-[50rem] text-slate-700 font-medium ">
 {props.description}
           </Typography>
         </motion.div>

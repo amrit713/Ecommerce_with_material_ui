@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, Dispatch } from "react";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Divider } from "@mui/material";
 import Description from "./Description";
 import Reviews from "./Reviews";
 import Product from "../home/product/Product";
@@ -19,20 +19,21 @@ function DescriptionReview({description, relatedProducts, product}:IProps) {
     <div className="mt-8">
       <div className=" flex space-x-8">
         <Button
-          className={` ${toggle ? "" : "text-dark"} font-semibold`}
+          className={` ${toggle ? "underline" : "text-dark"} font-semibold capitalize`}
           onClick={(e) => setToggle(true)}
         >
           Description{" "}
         </Button>
         <Button
-          className={`  ${toggle ? "text-dark" : ""} font-semibold`}
+          className={`  ${toggle ? "text-dark" : "underline"} font-semibold capitalize`}
           onClick={(e) => setToggle(false)}
         >
           Review ({product?.ratingsQuantity})
         </Button>
       </div>
 
-      <div className="w-full border-solid border border-gray-300 " />
+      {/* <div className="w-full border-solid border border-gray-300 " /> */}
+      <Divider orientation="horizontal" sx={{ borderStyle: "dashed" }} />
 
       <Description toggle={toggle} description={description} />
 

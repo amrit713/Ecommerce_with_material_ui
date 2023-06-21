@@ -50,13 +50,14 @@ function resetPassword() {
       }
     }, 2000);
 
-    return () => clearTimeout(timer)
     if (passwordReset.message) {
       router.push("/login");
     }
+    return () => clearTimeout(timer)
+   
   }, [passwordReset, router]);
   return (
-    <div className="bg-white mt-72  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
+    <div className="bg-white my-10  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
       <div className="">
         <Link href="/">
           <svg

@@ -17,7 +17,7 @@ function pageNotFound() {
         <Image
           layout="fill"
           alt="page Not found"
-          src="/404-error-page-not-found-with-people-connecting-a-plug-not-css.svg"
+          src="/404.svg"
         />
       </div>
       <div className="flex flex-col justify-center items-center gap-4 lg:mt-4">

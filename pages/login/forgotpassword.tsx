@@ -32,7 +32,7 @@ function forgotPassword() {
       },
     });
   return (
-    <div className="bg-white mt-72  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
+    <div className="bg-white my-10  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
       <div className="">
         <Link href="/">
           <svg

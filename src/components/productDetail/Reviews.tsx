@@ -1,17 +1,51 @@
-import { TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import Review from "./Review";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
 import { IProduct } from "../../interface/IProduct";
+import { useFormik } from "formik";
+import {
+  getReviewsAction,
+  postReviewAction,
+} from "../../../store/action/reviewAction";
+import { useTypedDispatch, useTypedSelector } from "../../../store/store";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 interface IProps {
-  product:IProduct
+  product: IProduct;
   toggle: boolean;
 }
 
+interface IValues {
+  rating: number;
+  review: string;
+}
+
+const initialValues: IValues = {
+  rating: 1,
+  review: "",
+};
+
 function Reviews(props: IProps) {
-  const [value, setValue] = React.useState<number | null>(1);
+  const dispatch = useTypedDispatch();
+  const router = useRouter();
+  const { error } = useTypedSelector((state) => state.review);
+
+  const { values, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValues,
+    onSubmit: (value) => {
+      dispatch(postReviewAction({ ...value, id: router.query.pid }));
+    },
+  });
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error, router]);
+
   return (
     <AnimatePresence>
       {!props.toggle && (
@@ -24,40 +58,58 @@ function Reviews(props: IProps) {
         >
           {/* review */}
           <div className="space-y-8">
-            {props.product?.reviews?.map((review:any)=>(
-              <div key={review.id}><Review review={review}/></div>
+            {props.product?.reviews?.map((review: any) => (
+              <div key={review.id}>
+                <Review review={review} />
+              </div>
             ))}
-            
-            
           </div>
-          <div className="space-y-4 mt-8">
-            <Typography variant="h5" className="font-semibold">
-              Write a review for this product
-            </Typography>
+          <form action="" onSubmit={handleSubmit}>
+            <div className="space-y-4 mt-8">
+              <Typography variant="h5" className="font-semibold">
+                Write a Review for this product
+              </Typography>
 
-            <div className="">
-              <Typography className="text-dark mb-2">Your Rating*</Typography>
+              <div className="">
+                <Typography className="text-slate-500 mb-2 font-semibold">
+                  Your Rating*
+                </Typography>
 
-              <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />
+                <Rating
+                  name="rating"
+                  value={values.rating}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+
+              <div className="">
+                <Typography className="text-slate-500 mb-2 font-semibold">
+                  Your Review *
+                </Typography>
+
+                <TextField
+                  name="review"
+                  value={values.review}
+                  multiline={true}
+                  rows={6}
+                  required
+                  className="w-full"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  className={`capitalize mt-2 font-semibold  
+                  `}
+                  disabled={values.review ? false : true}
+                >
+                  Submit
+                </Button>
+              </div>
             </div>
-
-            <div className="">
-              <Typography className="text-dark mb-2">Your Review *</Typography>
-
-              <TextField
-                multiline={true}
-                rows={6}
-                required
-                className="w-full"
-              />
-            </div>
-          </div>
+          </form>
         </motion.div>
       )}
     </AnimatePresence>

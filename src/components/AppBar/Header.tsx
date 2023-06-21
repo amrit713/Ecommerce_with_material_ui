@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { IconButton } from "@mui/material";
 
 import Badge from "@mui/material/Badge";
@@ -12,8 +12,9 @@ import Link from "next/link";
 import { useTypedSelector } from "../../../store/store";
 import ProfileHeader from "./ProfileHeader";
 import SearchBar from "./SearchBar";
+import Notification from "./Notification";
 
-function Header() {
+function Header()  {
   const { isAuthenticated } = useTypedSelector((state) => state.auth);
   const { cartItems } = useTypedSelector((state: any) => state.cart);
 
@@ -45,11 +46,7 @@ function Header() {
 
       <SearchBar />
       <div className=" hidden sm:flex item-center gap-4">
-        <IconButton aria-label="user" className="hover:text-primary-main   ">
-          <Badge badgeContent={1} color="primary">
-            <NotificationsNoneIcon className="text-[28px] text-gray-500 " />
-          </Badge>
-        </IconButton>
+        <Notification />
 
         <Link href="/cart">
           <IconButton aria-label="user" className=" hover:text-primary-main ">

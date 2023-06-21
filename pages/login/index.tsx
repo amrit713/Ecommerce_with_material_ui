@@ -41,7 +41,7 @@ const login: NextPage = () => {
     
 
   return (
-    <div className="bg-white mt-52  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
+    <div className="bg-white my-10  m-auto max-w-[600px] min-w-[310px] rounded-lg box_shadow px-[48px] py-[32px] text-center space-y-6 ">
       <div className="">
         <Link href="/">
           <svg
@@ -74,7 +74,7 @@ const login: NextPage = () => {
         <div className="space-y-2">
           <TextField
             name="email"
-            label="Email or Phone"
+            label="Email"
             className="w-full"
             value={values.email}
             required

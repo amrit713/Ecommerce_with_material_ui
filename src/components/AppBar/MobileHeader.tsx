@@ -14,6 +14,7 @@ function MobileHeader() {
   const [value, setValue] = useState("/");
   const router = useRouter();
   const { cartItems } = useTypedSelector((state) => state.cart);
+  const {userInfo} = useTypedSelector(state=>state.auth)
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -50,7 +51,7 @@ function MobileHeader() {
             }
           />
         </Link>
-        <Link href="/login">
+        <Link href={userInfo?"/profile":"/login"}>
           <BottomNavigationAction
             label="Account"
             value="account"

@@ -50,6 +50,9 @@ function Product({ product }: IProps) {
           layout="fill"
           objectFit="cover"
           className="group-hover:scale-110 duration-300 ease-in-out bg-[#f6f6f6] "
+          quality={75}
+          priority={false}
+        
         />
 
         {/* <div className="absolute bg-blue-400 top-2 right-2 px-2  text-white rounded font-semibold ">

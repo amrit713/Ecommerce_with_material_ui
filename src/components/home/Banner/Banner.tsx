@@ -7,19 +7,9 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import BannerImage from "./BannerImage";
 
-const items = [
-  {
-    fashion: "men",
-    image: "https://bazar-react.vercel.app/assets/images/banners/banner-15.jpg",
-  },
-  {
-    fashion: "women",
-    image: "https://bazar-react.vercel.app/assets/images/banners/banner-25.jpg",
-  },
-];
+function Banner(props: any) {
+  let bannerProducts = props.products.slice(8, 10);
 
-function Banner(props:any) {
-  
   return (
     <div className=" flex gap-4  ">
       <Carousel
@@ -30,20 +20,26 @@ function Banner(props:any) {
         fullHeightHover={true}
         interval={6000}
       >
-        {items.map((item: any, i: number): any => {
+        {bannerProducts.map((product: any): any => {
           return (
-            <BannerImage key={i} image={item.image} fashion={item.fashion} />
+            <BannerImage
+              key={product.id}
+              productId={product.id}
+              image={product.images[2]}
+              fashion={product.brand}
+            />
           );
         })}
       </Carousel>
 
       <div className="hidden  md:inline-block w-[25%] space-y-4">
         <div className="relative">
-          <div className="relative w-[full] h-[24vh]  opacity-70">
+          <div className=" relative w-[full] h-[24vh]  opacity-70">
             <Image
               src="https://images.pexels.com/photos/1464625/pexels-photo-1464625.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               layout="fill"
               objectFit="cover"
+              className=""
             ></Image>
           </div>
           <div className="absolute top-[30%] left-8">
@@ -66,7 +62,7 @@ function Banner(props:any) {
         <div className="relative">
           <div className="relative w-[full] h-[24vh]  opacity-70 ">
             <Image
-              src="https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src="https://images.pexels.com/photos/2529147/pexels-photo-2529147.jpeg?auto=compress&cs=tinysrgb&w=1600"
               layout="fill"
               objectFit="cover"
             ></Image>
